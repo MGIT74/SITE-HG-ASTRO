@@ -29,9 +29,58 @@ import { navLinks } from '../data/site.js';
         ))}
       </ul>
       <a href="#contact" class="btn-nav">Réserver une démo →</a>
+
+      <!-- Bouton hamburger (mobile uniquement) -->
+      <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </nav>
 
+    <!-- Menu mobile plein écran -->
+    <div class="mobile-menu" id="mobile-menu">
+      <ul>
+        {navLinks.map((link, index) => (
+          <li style={`--item-delay:${index * 60}ms`}>
+            <a href={link.href} class="mobile-link">{link.label}</a>
+          </li>
+        ))}
+      </ul>
+      <a href="#contact" class="btn-mobile-cta">Réserver un Audit Gratuit →</a>
+    </div>
+
     <slot />
+
+    <script>
+      // ============ MENU MOBILE ============
+      const burger = document.getElementById('nav-burger');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      function closeMenu() {
+        burger?.classList.remove('open');
+        mobileMenu?.classList.remove('open');
+        burger?.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      burger?.addEventListener('click', () => {
+        const isOpen = mobileMenu?.classList.toggle('open');
+        burger.classList.toggle('open', isOpen);
+        burger?.setAttribute('aria-expanded', String(isOpen));
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+
+      // Fermer au clic sur un lien
+      mobileMenu?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // Fermer avec Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+      });
+    </script>
 
     <script>
       // ============ SCROLL REVEAL SYSTEM ============
