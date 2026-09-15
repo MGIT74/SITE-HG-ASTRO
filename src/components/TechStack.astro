@@ -2,11 +2,16 @@
 const techs = [
   { name: 'Astro', category: 'Framework Frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/astro/astro-original.svg' },
   { name: 'Vue.js', category: 'Framework Frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg' },
+  { name: 'React', category: 'Framework Frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', dark: true },
   { name: 'Next.js', category: 'Framework React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
+  { name: 'Laravel', category: 'Framework Backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg' },
   { name: 'Node.js', category: 'Runtime Serveur', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
   { name: 'Supabase', category: 'Backend & Auth', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg' },
   { name: 'PostgreSQL', category: 'Base de Données', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
   { name: 'MySQL', category: 'Base de Données', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
+  { name: 'MariaDB', category: 'Base de Données', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mariadb/mariadb-original.svg' },
+  { name: 'Redis', category: 'Cache & Performance', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg' },
+  { name: 'Cloudflare', category: 'CDN & Sécurité', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cloudflare/cloudflare-original.svg' },
   { name: 'AWS', category: 'Cloud & Hébergement', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg', dark: true },
   { name: 'Google Cloud', category: 'Cloud & IA', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg', dark: true },
 ];
@@ -19,18 +24,25 @@ const techs = [
     <p>Nous choisissons des outils modernes, éprouvés et performants pour construire des solutions rapides, fiables et évolutives.</p>
   </div>
 
-  <div class="tech-grid">
-    {techs.map((tech, index) => (
-      <div class="tech-card" data-reveal="scale" style={`--reveal-delay:${index * 60}ms`}>
-        <div class="tech-logo">
-          <img src={tech.icon} alt={tech.name} width="48" height="48" loading="lazy" class:list={[{ 'logo-dark': tech.dark }]} />
+  <div class="tech-slider" data-reveal="fade">
+    <div class="tech-track" id="tech-track">
+      <!-- Deux copies du groupe pour un défilement infini sans saut -->
+      {[0, 1].map(() => (
+        <div class="tech-group">
+          {techs.map((tech) => (
+            <div class="tech-card">
+              <div class="tech-logo">
+                <img src={tech.icon} alt={tech.name} width="40" height="40" loading="lazy" class:list={[{ 'logo-dark': tech.dark }]} />
+              </div>
+              <div class="tech-info">
+                <h4>{tech.name}</h4>
+                <span>{tech.category}</span>
+              </div>
+            </div>
+          ))}
         </div>
-        <div class="tech-info">
-          <h4>{tech.name}</h4>
-          <span>{tech.category}</span>
-        </div>
-      </div>
-    ))}
+      ))}
+    </div>
   </div>
 </section>
 
@@ -40,46 +52,74 @@ const techs = [
     background: white;
     position: relative;
     z-index: 1;
+    overflow: hidden;
   }
 
-  .tech-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 1rem;
-    max-width: 1100px;
+  /* ============ SLIDER INFINI ============ */
+  .tech-slider {
+    max-width: 1200px;
     margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    /* Fondu sur les bords gauche et droit */
+    mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+
+  .tech-track {
+    display: flex;
+    width: max-content;
+    animation: tech-scroll 45s linear infinite;
+  }
+
+  /* Pause au survol */
+  .tech-slider:hover .tech-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes tech-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .tech-group {
+    display: flex;
+    gap: 0.85rem;
+    padding-right: 0.85rem;
   }
 
   .tech-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 1.75rem 1.25rem;
-    text-align: center;
-    transition: all 0.4s var(--ease-spring);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    transition: all 0.35s var(--ease-spring);
     cursor: default;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .tech-card:hover {
     background: white;
-    transform: translateY(-6px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 113, 227, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 113, 227, 0.25);
   }
 
   .tech-logo {
-    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
   }
 
   .tech-logo img {
-    width: 48px;
-    height: 48px;
+    width: 38px;
+    height: 38px;
     object-fit: contain;
-    transition: transform 0.4s var(--ease-spring);
+    transition: transform 0.35s var(--ease-spring);
   }
 
   .tech-logo img.logo-dark {
@@ -87,17 +127,40 @@ const techs = [
   }
 
   .tech-card:hover .tech-logo img {
-    transform: scale(1.15) translateY(-3px);
+    transform: scale(1.15);
+  }
+
+  .tech-info {
+    text-align: left;
   }
 
   .tech-info h4 {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     font-weight: 700;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.1rem;
   }
 
   .tech-info span {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--ink-tertiary);
+  }
+
+  @media (max-width: 768px) {
+    .tech {
+      padding: 5rem 5%;
+    }
+
+    .tech-card {
+      padding: 1rem 1.1rem;
+      gap: 0.65rem;
+    }
+
+    .tech-logo img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .tech-info h4 { font-size: 0.8rem; }
+    .tech-info span { font-size: 0.62rem; }
   }
 </style>
