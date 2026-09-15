@@ -1,0 +1,370 @@
+---
+import { plans } from '../data/site.js';
+---
+
+<section class="pricing" id="pricing">
+  <div class="section-header" data-reveal="fade">
+    <span class="eyebrow">Tarifs</span>
+    <h2>Nos Formules d'Accompagnement</h2>
+    <p>Des solutions adaptées à la taille et aux besoins de votre entreprise. Prix TTC.</p>
+  </div>
+
+  <div class="pricing-selector" data-reveal="fade">
+    <div class="pricing-tabs">
+      {plans.map((plan, index) => (
+        <button class={`pricing-tab${index === 0 ? ' active' : ''}`} data-plan={index}>
+          <div>
+            <div class="pricing-tab-name">{plan.name}</div>
+            <div class="pricing-tab-sub">{plan.sub}</div>
+          </div>
+          <div class="pricing-tab-indicator">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"></polyline></svg>
+          </div>
+          {plan.popular && <span class="pricing-tab-badge">Le plus populaire</span>}
+        </button>
+      ))}
+    </div>
+
+    <div class="pricing-detail" id="pricing-detail">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</section>
+
+<template id="plan-template">
+  <div class="pricing-detail-preview">
+    <div class="pricing-detail-icon" data-slot="icon"></div>
+  </div>
+  <div class="pricing-detail-badge-row">
+    <div class="pricing-detail-icon-small" data-slot="iconSmall"></div>
+    <div class="pricing-detail-name" data-slot="name"></div>
+  </div>
+  <div class="pricing-detail-price">
+    <span class="amount" data-slot="amount"></span>
+    <span class="period" data-slot="period"></span>
+  </div>
+  <p class="pricing-detail-desc" data-slot="desc"></p>
+  <a href="#contact" class="btn-pricing-detail" data-slot="cta"></a>
+  <div class="pricing-included-title">Ce qui est inclus :</div>
+  <ul class="pricing-included" data-slot="features"></ul>
+</template>
+
+<style>
+  .pricing {
+    padding: 8rem 5%;
+    background: white;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pricing-selector {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 1.5rem;
+    max-width: 920px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .pricing-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .pricing-tab {
+    background: var(--surface);
+    border: 1.5px solid transparent;
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s var(--ease-spring);
+    position: relative;
+    font-family: inherit;
+    text-align: left;
+    width: 100%;
+  }
+
+  .pricing-tab:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  .pricing-tab.active {
+    border-color: var(--blue);
+    background: white;
+    box-shadow: 0 8px 24px rgba(0, 113, 227, 0.12);
+  }
+
+  .pricing-tab-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.15rem;
+  }
+
+  .pricing-tab-sub {
+    font-size: 0.75rem;
+    color: var(--ink-tertiary);
+  }
+
+  .pricing-tab-indicator {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #e8e8ed;
+    color: var(--ink-tertiary);
+    transition: all 0.35s var(--ease-spring);
+  }
+
+  .pricing-tab.active .pricing-tab-indicator {
+    background: var(--blue);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .pricing-tab-badge {
+    position: absolute;
+    top: -10px;
+    right: 1rem;
+    background: var(--blue);
+    color: white;
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 0.28rem 0.65rem;
+    border-radius: 50px;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+  }
+
+  .pricing-detail {
+    background: var(--surface);
+    border-radius: 24px;
+    padding: 1.75rem;
+    position: sticky;
+    top: 6rem;
+    animation: panel-in 0.45s var(--ease-spring);
+  }
+
+  .pricing-detail-anim {
+    animation: panel-in 0.45s var(--ease-spring);
+  }
+
+  @keyframes panel-in {
+    from { opacity: 0; transform: translateY(12px) scale(0.99); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .pricing-detail-preview {
+    height: 110px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #0a84ff 0%, #0071e3 50%, #0051a2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pricing-detail-preview::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 20%, rgba(255, 255, 255, 0.25), transparent 55%);
+  }
+
+  .pricing-detail-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .pricing-detail-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .pricing-detail-icon-small {
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    background: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: white;
+  }
+
+  .pricing-detail-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .pricing-detail-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .pricing-detail-price .amount {
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #0a84ff, #0071e3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .pricing-detail-price .period {
+    font-size: 0.85rem;
+    color: var(--ink-tertiary);
+  }
+
+  .pricing-detail-desc {
+    color: var(--ink-secondary);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .btn-pricing-detail {
+    display: block;
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    background: var(--blue);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: all 0.3s var(--ease-spring);
+    margin-bottom: 1.5rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-pricing-detail:hover {
+    background: var(--blue-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 113, 227, 0.35);
+  }
+
+  .pricing-included-title {
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    font-size: 0.88rem;
+  }
+
+  .pricing-included {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem 1.25rem;
+    list-style: none;
+  }
+
+  .pricing-included li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: #3a3a3c;
+    animation: feature-in 0.4s var(--ease-spring) both;
+  }
+
+  @keyframes feature-in {
+    from { opacity: 0; transform: translateX(-8px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .pricing-included .check {
+    color: var(--green);
+    flex-shrink: 0;
+    display: flex;
+  }
+
+  @media (max-width: 900px) {
+    .pricing-selector { grid-template-columns: 1fr; }
+    .pricing-detail { position: static; }
+    .pricing-included { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script define:vars={{ plans }}>
+  const checkIcon =
+    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"></polyline></svg>';
+
+  const planIcons = {
+    0: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="M8 15l3-4 3 2 4-6"></path></svg>',
+    1: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="12" cy="18" r="2.5"></circle><path d="M8 7.5 L11 16"></path><path d="M16 7.5 L13 16"></path></svg>',
+    2: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M4 9h16"></path><path d="M9 20V9"></path></svg>',
+    3: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="10" width="7" height="11"></rect><rect x="14" y="4" width="7" height="17"></rect><line x1="3" y1="21" x2="21" y2="21"></line></svg>',
+  };
+
+  const detail = document.getElementById('pricing-detail');
+  const tabs = document.querySelectorAll('.pricing-tab');
+  let currentIndex = 0;
+
+  function render(index) {
+    const plan = plans[index];
+    const icon = planIcons[index];
+
+    detail.innerHTML = `
+      <div class="pricing-detail-anim">
+        <div class="pricing-detail-preview">
+          <div class="pricing-detail-icon">${icon}</div>
+        </div>
+        <div class="pricing-detail-badge-row">
+          <div class="pricing-detail-icon-small">${icon}</div>
+          <div class="pricing-detail-name">${plan.name}</div>
+        </div>
+        <div class="pricing-detail-price">
+          <span class="amount">${plan.amount}</span>
+          <span class="period">${plan.period}</span>
+        </div>
+        <p class="pricing-detail-desc">${plan.desc}</p>
+        <a href="#contact" class="btn-pricing-detail">${plan.cta}</a>
+        <div class="pricing-included-title">Ce qui est inclus :</div>
+        <ul class="pricing-included">
+          ${plan.features
+            .map(
+              (f, i) =>
+                `<li style="animation-delay:${i * 0.05}s"><span class="check">${checkIcon}</span><span>${f}</span></li>`
+            )
+            .join('')}
+        </ul>
+      </div>
+    `;
+
+    tabs.forEach((t, i) => t.classList.toggle('active', i === index));
+    currentIndex = index;
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => render(parseInt(tab.dataset.plan, 10)));
+  });
+
+  render(0);
+</script>

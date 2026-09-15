@@ -1,0 +1,384 @@
+---
+import { services } from '../data/site.js';
+
+const icons = {
+  chat: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="12" rx="3"></rect><path d="M9 7V5a3 3 0 0 1 6 0v2"></path><circle cx="9.5" cy="13" r="1"></circle><circle cx="14.5" cy="13" r="1"></circle></svg>',
+  workflow: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="12" cy="18" r="2.5"></circle><path d="M8 7.5 L11 16"></path><path d="M16 7.5 L13 16"></path></svg>',
+  dashboard: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M4 9h16"></path><path d="M9 20V9"></path></svg>',
+  chart: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="M8 15l3-4 3 2 4-6"></path></svg>',
+};
+
+const bars = [
+  { height: '35%', delay: '0.1s' },
+  { height: '55%', delay: '0.2s' },
+  { height: '40%', delay: '0.3s' },
+  { height: '100%', delay: '0.4s' },
+  { height: '65%', delay: '0.5s' },
+  { height: '80%', delay: '0.5s' },
+  { height: '50%', delay: '0.7s' },
+];
+---
+
+<section class="services" id="services">
+  <div class="section-header" data-reveal="fade">
+    <span class="eyebrow">Nos Services</span>
+    <h2>Nos Prestations Complètes</h2>
+    <p>Combinez automatisation IA et marketing digital pour transformer votre entreprise et acquérir plus de clients automatiquement.</p>
+  </div>
+
+  <div class="services-grid">
+    {services.map((service, index) => (
+      <div class="service-card" data-reveal="rise" style={`--reveal-delay:${index * 100}ms`}>
+        <div class="service-icon" set:html={icons[service.visual]} />
+        <h3>{service.title}</h3>
+        <p>{service.desc}</p>
+        <div class="service-visual">
+          {service.visual === 'chat' && (
+            <div>
+              <div class="visual-chat-pill">
+                <span class="visual-chat-dot"></span>
+                <span style="flex:1;"><span class="pill-title">Agent IA</span><small>En ligne · Répond en temps réel</small></span>
+              </div>
+              <div class="visual-bar" style="width:85%;"><span style="width:85%;"></span></div>
+              <div class="visual-bar" style="width:60%;"><span style="width:70%;"></span></div>
+            </div>
+          )}
+          {service.visual === 'workflow' && (
+            <div>
+              <div class="visual-workflow">
+                <div class="visual-node filled">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"></polyline></svg>
+                </div>
+                <div class="visual-line"></div>
+                <div class="visual-node">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0071e3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 L4 14 h6 l-1 8 9-12 h-6 z"></path></svg>
+                </div>
+                <div class="visual-line"></div>
+                <div class="visual-node">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0071e3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>
+                </div>
+              </div>
+              <div class="visual-chart-label" style="margin-top:0.4rem;">
+                <span>Déclencheur</span><span>Action</span><span>Résultat</span>
+              </div>
+            </div>
+          )}
+          {service.visual === 'dashboard' && (
+            <div class="visual-dashboard">
+              <div class="visual-dashboard-topbar">
+                <span class="visual-dashboard-dot"></span>
+                <span class="visual-dashboard-dot"></span>
+                <span class="visual-dashboard-dot active"></span>
+                <span class="visual-dashboard-tab">Dashboard Client</span>
+              </div>
+              <div class="visual-dashboard-body">
+                <div class="visual-dashboard-heading">
+                  <span>Activité cette semaine</span>
+                  <strong>+18%</strong>
+                </div>
+                <div class="visual-dashboard-bars">
+                  {bars.map((bar) => (
+                    <div class="bar" style={`height:${bar.height};animation-delay:${bar.delay};`}></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+          {service.visual === 'chart' && (
+            <div>
+              <div class="visual-chart-label" style="margin-bottom:0.4rem;">
+                <span>Leads générés</span>
+                <strong>+40%</strong>
+              </div>
+              <svg class="visual-chart" viewBox="0 0 220 40" preserveAspectRatio="none">
+                <polyline points="0,32 25,30 50,22 75,26 100,16 125,18 150,8 175,12 220,2" fill="none" stroke="#30d158" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .services {
+    padding: 8rem 5%;
+    background: white;
+    position: relative;
+    z-index: 1;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .service-card {
+    background: var(--surface);
+    padding: 2rem;
+    border-radius: 22px;
+    border: 1px solid transparent;
+    transition: all 0.4s var(--ease-spring);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #0a84ff, #409cff, #0a84ff);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease-spring);
+  }
+
+  .service-card:hover {
+    transform: translateY(-6px);
+    background: white;
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.03),
+      0 16px 40px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 113, 227, 0.15);
+  }
+
+  .service-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .service-icon {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: var(--blue);
+    background: rgba(0, 113, 227, 0.07);
+    border-radius: 13px;
+    transition: all 0.4s var(--ease-spring);
+  }
+
+  .service-card:hover .service-icon {
+    transform: scale(1.1);
+    background: var(--blue);
+    color: white;
+    box-shadow: 0 6px 18px rgba(0, 113, 227, 0.35);
+  }
+
+  .service-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.3px;
+  }
+
+  .service-card p {
+    color: var(--ink-secondary);
+    line-height: 1.6;
+    font-size: 0.92rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .service-visual {
+    margin-top: auto;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .visual-chat-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.6rem 0.85rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .visual-chat-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(48, 209, 88, 0.15);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  .pill-title {
+    font-size: 0.8rem;
+    color: var(--ink);
+    font-weight: 600;
+    display: block;
+  }
+
+  .visual-chat-pill small {
+    display: block;
+    font-size: 0.68rem;
+    color: var(--ink-tertiary);
+  }
+
+  .visual-bar {
+    height: 6px;
+    border-radius: 4px;
+    background: #e8e8ed;
+    overflow: hidden;
+  }
+
+  .visual-bar span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #0a84ff, #0071e3);
+    border-radius: 4px;
+    transform-origin: left;
+    animation: bar-grow 2s var(--ease-smooth) infinite alternate;
+  }
+
+  @keyframes bar-grow {
+    from { transform: scaleX(0.3); }
+    to { transform: scaleX(1); }
+  }
+
+  .visual-workflow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .visual-node {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: white;
+    border: 1.5px solid var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .visual-node.filled {
+    background: var(--blue);
+  }
+
+  .visual-line {
+    flex: 1;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, #c7c7cc 0, #c7c7cc 4px, transparent 4px, transparent 8px);
+  }
+
+  .visual-dashboard {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .visual-dashboard-topbar {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.55rem 0.7rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .visual-dashboard-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #d2d2d7;
+  }
+
+  .visual-dashboard-dot.active {
+    background: var(--blue);
+  }
+
+  .visual-dashboard-tab {
+    margin-left: auto;
+    font-size: 0.62rem;
+    color: var(--ink-tertiary);
+    background: white;
+    padding: 0.15rem 0.5rem;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+  }
+
+  .visual-dashboard-body {
+    padding: 0.8rem 0.85rem 0.7rem;
+  }
+
+  .visual-dashboard-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.6rem;
+  }
+
+  .visual-dashboard-heading span:first-child {
+    font-size: 0.7rem;
+    color: var(--ink-tertiary);
+  }
+
+  .visual-dashboard-heading strong {
+    font-size: 0.85rem;
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  .visual-dashboard-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 38px;
+  }
+
+  .visual-dashboard-bars .bar {
+    flex: 1;
+    background: linear-gradient(180deg, #0a84ff, #0071e3);
+    border-radius: 3px 3px 1px 1px;
+    transform-origin: bottom;
+    animation: bar-rise 1.2s var(--ease-spring) both;
+  }
+
+  @keyframes bar-rise {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+
+  .visual-chart {
+    width: 100%;
+    height: 60px;
+  }
+
+  .visual-chart-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--ink-tertiary);
+  }
+
+  .visual-chart-label strong {
+    color: var(--green);
+    font-weight: 700;
+  }
+</style>

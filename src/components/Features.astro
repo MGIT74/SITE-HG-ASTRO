@@ -1,0 +1,83 @@
+---
+import { features } from '../data/site.js';
+---
+
+<section class="features" id="features">
+  <div class="section-header" data-reveal="fade">
+    <span class="eyebrow">Pourquoi Nous</span>
+    <h2>Pourquoi Choisir Hands Graphic ?</h2>
+    <p>Nous combinons automatisation IA et marketing digital pour vous faire gagner du temps ET acquérir plus de clients.</p>
+  </div>
+
+  <div class="features-grid">
+    {features.map((feature, index) => (
+      <div class="feature-item" data-reveal="fade" style={`--reveal-delay:${index * 70}ms`}>
+        <div class="feature-number">{String(index + 1).padStart(2, '0')}</div>
+        <div class="feature-content">
+          <h3>{feature.title}</h3>
+          <p>{feature.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .features {
+    padding: 8rem 5%;
+    background: var(--surface);
+    position: relative;
+    z-index: 1;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .feature-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .feature-number {
+    width: 48px;
+    height: 48px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    color: var(--blue);
+    transition: all 0.4s var(--ease-spring);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .feature-item:hover .feature-number {
+    background: var(--blue);
+    color: white;
+    transform: scale(1.08);
+    box-shadow: 0 8px 20px rgba(0, 113, 227, 0.3);
+    border-color: var(--blue);
+  }
+
+  .feature-content h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-content p {
+    color: var(--ink-secondary);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+</style>

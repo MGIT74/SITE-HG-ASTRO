@@ -1,0 +1,89 @@
+---
+import '../styles/global.css';
+import { navLinks } from '../data/site.js';
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hands Graphic - Agence d'Automatisation IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="bg-grid"></div>
+
+    <nav>
+      <div class="logo">
+        <div class="logo-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L21 7 L21 17 L12 22 L3 17 L3 7 Z"></path></svg>
+        </div>
+        <span>Hands Graphic</span>
+      </div>
+      <ul class="nav-links">
+        {navLinks.map((link) => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+      <a href="#contact" class="btn-nav">Réserver une démo →</a>
+    </nav>
+
+    <slot />
+
+    <script>
+      // ============ SCROLL REVEAL SYSTEM ============
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const els = document.querySelectorAll('[data-reveal]');
+
+      if (prefersReduced || !('IntersectionObserver' in window)) {
+        els.forEach((el) => el.classList.add('reveal-visible'));
+      } else {
+        const heroEls = document.querySelectorAll('.hero [data-reveal]');
+        const otherEls: Element[] = [];
+        els.forEach((el) => {
+          if (!el.closest('.hero')) otherEls.push(el);
+        });
+
+        requestAnimationFrame(() => {
+          heroEls.forEach((el, i) => {
+            setTimeout(() => el.classList.add('reveal-visible'), i * 80);
+          });
+        });
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+        );
+
+        otherEls.forEach((el) => observer.observe(el));
+      }
+
+      // ============ PARALLAX FOR FLOATING STATS ============
+      const mStats = document.querySelectorAll<HTMLElement>('.m-stat');
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            const scrolled = window.pageYOffset;
+            mStats.forEach((stat, index) => {
+              const speed = 0.03 + index * 0.015;
+              stat.style.transform = 'translateY(' + scrolled * speed + 'px)';
+            });
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    </script>
+  </body>
+</html>

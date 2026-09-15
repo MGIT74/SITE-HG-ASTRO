@@ -1,0 +1,107 @@
+---
+import { footerCols } from '../data/site.js';
+---
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-logo">
+        <div class="footer-logo-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L21 7 L21 17 L12 22 L3 17 L3 7 Z"></path></svg>
+        </div>
+        <span>Hands Graphic</span>
+      </div>
+      <p class="footer-desc">
+        Agence d'automatisation IA. Nous créons des agents intelligents et des applications métier pour transformer votre entreprise.
+      </p>
+    </div>
+    {footerCols.map((col) => (
+      <div class="footer-col">
+        <h4>{col.title}</h4>
+        <ul>
+          {col.links.map((link) => (
+            <li><a href="#">{link}</a></li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Hands Graphic - Tous droits réservés</p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: var(--ink);
+    color: white;
+    padding: 4rem 5% 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-logo-icon {
+    width: 34px;
+    height: 34px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .footer-desc {
+    color: #86868b;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .footer-col h4 {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-col ul {
+    list-style: none;
+  }
+
+  .footer-col ul li {
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-col a {
+    color: #a1a1a6;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-col a:hover {
+    color: var(--blue-light, #0a84ff);
+  }
+
+  .footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: #86868b;
+    font-size: 0.9rem;
+  }
+</style>
