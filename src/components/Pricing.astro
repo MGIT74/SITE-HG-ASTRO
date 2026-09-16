@@ -231,6 +231,25 @@ import { plans } from '../data/site.js';
     margin-bottom: 0.85rem;
   }
 
+  .pricing-from {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink-tertiary, #86868b);
+    margin-bottom: 0.35rem;
+    letter-spacing: 0.2px;
+    animation: from-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  .pricing-from.hide {
+    visibility: hidden;
+  }
+
+  @keyframes from-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   .pricing-detail-price .amount {
     font-size: 2.4rem;
     font-weight: 800;
@@ -467,9 +486,12 @@ import { plans } from '../data/site.js';
           <div class="pricing-detail-icon-small">${icon}</div>
           <div class="pricing-detail-name">${plan.name}</div>
         </div>
-        <div class="pricing-detail-price">
-          <span class="amount" id="slot-price"></span>
-          <span class="period">${plan.period}</span>
+        <div class="pricing-detail-price" style="flex-direction: column; align-items: flex-start; gap: 0;">
+          <span class="pricing-from ${plan.from ? '' : 'hide'}">À partir de</span>
+          <div style="display: flex; align-items: baseline; gap: 0.3rem;">
+            <span class="amount" id="slot-price"></span>
+            <span class="period">${plan.period}</span>
+          </div>
         </div>
         <p class="pricing-detail-desc">${plan.desc}</p>
         <a href="#contact" class="btn-pricing-detail">${plan.cta}</a>

@@ -57,6 +57,7 @@ export const plans = [
     period: '/mois TTC',
     desc: 'Marketing digital automatisé pour acquérir des clients continuellement.',
     cta: 'Commencer maintenant',
+    from: true,
     features: [
       'Gestion campagnes publicitaires',
       'Emailing & nurturing IA',
