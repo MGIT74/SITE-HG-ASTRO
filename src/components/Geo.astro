@@ -1,0 +1,294 @@
+---
+---
+
+<section class="geo" id="geo">
+  <div class="geo-container">
+    <div class="geo-content" data-reveal="fade">
+      <div class="geo-badge">GEO • Generative Engine Optimization</div>
+      <h2>
+        Demain, on ne cherchera plus.<br />
+        <span class="geo-highlight">On demandera à l'IA.</span>
+      </h2>
+      <p class="geo-text">
+        Et ce demain a déjà commencé. Nos clients sont <strong>déjà cités par ChatGPT, Claude et l'intelligence artificielle de Google</strong>, au moment exact où l'on cherche leur métier.
+      </p>
+      <div class="geo-points">
+        <div class="geo-point">
+          <span class="geo-point-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C9.19 13.38 8 11.38 8 9a7 7 0 0 1 4-6.32z"></path><line x1="9" y1="21" x2="15" y2="21"></line></svg>
+          </span>
+          <div>
+            <h4>Optimisé pour les IA génératives</h4>
+            <p>Structure, données et contenu pensés pour être compris et cités par ChatGPT, Claude, Perplexity et Google AI.</p>
+          </div>
+        </div>
+        <div class="geo-point">
+          <span class="geo-point-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+          </span>
+          <div>
+            <h4>Visible au bon moment</h4>
+            <p>Quand un prospect demande son métier à une IA, c'est votre entreprise qui est recommandée.</p>
+          </div>
+        </div>
+        <div class="geo-point">
+          <span class="geo-point-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+          </span>
+          <div>
+            <h4>Une longueur d'avance</h4>
+            <p>Le GEO est le nouveau canal d'acquisition. Les premiers à l'exploiter dominent leur marché.</p>
+          </div>
+        </div>
+      </div>
+      <a href="#contact" class="btn-geo">Être cité par l'IA →</a>
+    </div>
+
+    <div class="geo-visual" data-reveal="scale" style="--reveal-delay:150ms">
+      <!-- Orbe IA animé -->
+      <div class="geo-orb">
+        <div class="geo-orb-core"></div>
+        <div class="geo-orb-ring r1"></div>
+        <div class="geo-orb-ring r2"></div>
+        <div class="geo-orb-ring r3"></div>
+      </div>
+
+      <!-- Cartes flottantes des IA -->
+      <div class="geo-card gc-1">
+        <span class="geo-ai-dot" style="background:#10a37f;"></span>
+        ChatGPT <em>cite votre marque</em>
+      </div>
+      <div class="geo-card gc-2">
+        <span class="geo-ai-dot" style="background:#d97757;"></span>
+        Claude <em>recommande vos services</em>
+      </div>
+      <div class="geo-card gc-3">
+        <span class="geo-ai-dot" style="background:#4285f4;"></span>
+        Google AI <em>vous affiche en premier</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .geo {
+    padding: 5rem 5%;
+    background: linear-gradient(180deg, white 0%, var(--surface) 50%, white 100%);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .geo-container {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .geo-badge {
+    display: inline-block;
+    background: var(--ink);
+    color: white;
+    padding: 0.45rem 1rem;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1.2px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  }
+
+  .geo-content h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1.5px;
+    line-height: 1.15;
+  }
+
+  .geo-highlight {
+    background: linear-gradient(135deg, #0a84ff, #0071e3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .geo-text {
+    font-size: 1.1rem;
+    color: var(--ink-secondary);
+    line-height: 1.7;
+    margin-bottom: 2.25rem;
+  }
+
+  .geo-text strong {
+    color: var(--ink);
+  }
+
+  .geo-points {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .geo-point {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .geo-point-icon {
+    width: 38px;
+    height: 38px;
+    background: rgba(0, 113, 227, 0.08);
+    color: var(--blue);
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.35s var(--ease-spring);
+  }
+
+  .geo-point:hover .geo-point-icon {
+    background: var(--blue);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .geo-point h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .geo-point p {
+    font-size: 0.9rem;
+    color: var(--ink-secondary);
+    line-height: 1.5;
+  }
+
+  .btn-geo {
+    display: inline-block;
+    background: var(--ink);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s var(--ease-spring);
+  }
+
+  .btn-geo:hover {
+    background: #000;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  }
+
+  /* ============ VISUEL IA ============ */
+  .geo-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 420px;
+  }
+
+  .geo-orb {
+    position: relative;
+    width: 200px;
+    height: 200px;
+  }
+
+  .geo-orb-core {
+    position: absolute;
+    inset: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #5eb8ff 0%, #0a84ff 40%, #0051a2 100%);
+    box-shadow:
+      0 0 60px rgba(10, 132, 255, 0.5),
+      0 0 120px rgba(10, 132, 255, 0.25),
+      inset 0 0 30px rgba(255, 255, 255, 0.2);
+    animation: geo-float 5s ease-in-out infinite;
+  }
+
+  @keyframes geo-float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-12px) scale(1.04); }
+  }
+
+  .geo-orb-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid rgba(10, 132, 255, 0.35);
+    animation: geo-ring 3s ease-out infinite;
+  }
+
+  .geo-orb-ring.r1 { inset: 20px; }
+  .geo-orb-ring.r2 { inset: 20px; animation-delay: 1s; }
+  .geo-orb-ring.r3 { inset: 20px; animation-delay: 2s; }
+
+  @keyframes geo-ring {
+    0% { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+
+  .geo-card {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    padding: 0.8rem 1.2rem;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    animation: geo-float 6s ease-in-out infinite;
+    transition: transform 0.35s var(--ease-spring);
+  }
+
+  .geo-card em {
+    font-style: normal;
+    font-weight: 400;
+    color: var(--ink-tertiary);
+    font-size: 0.75rem;
+  }
+
+  .geo-card:hover {
+    transform: translateY(-4px) scale(1.03);
+  }
+
+  .geo-card.gc-1 { top: 8%; left: 0%; animation-delay: 0s; }
+  .geo-card.gc-2 { top: 45%; right: -2%; animation-delay: 1.3s; }
+  .geo-card.gc-3 { bottom: 6%; left: 8%; animation-delay: 2.6s; }
+
+  .geo-ai-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .geo-container {
+      grid-template-columns: 1fr;
+    }
+
+    .geo-visual {
+      order: -1;
+      min-height: 320px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .geo-card.gc-1 { left: 0; }
+    .geo-card.gc-2 { right: 0; }
+  }
+</style>
