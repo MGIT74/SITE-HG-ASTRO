@@ -30,7 +30,6 @@ import { navLinks } from '../data/site.js';
       </ul>
       <a href="#contact" class="btn-nav">Réserver une démo →</a>
 
-      <!-- Bouton hamburger (mobile uniquement) -->
       <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
         <span></span>
         <span></span>
@@ -38,7 +37,6 @@ import { navLinks } from '../data/site.js';
       </button>
     </nav>
 
-    <!-- Menu mobile plein écran -->
     <div class="mobile-menu" id="mobile-menu">
       <ul>
         {navLinks.map((link, index) => (
@@ -52,14 +50,13 @@ import { navLinks } from '../data/site.js';
 
     <slot />
 
-    <!-- ============ BACK TO TOP ============ -->
     <button class="back-to-top" id="back-to-top" aria-label="Retour en haut">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
       <span class="btt-progress"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="125.6" stroke-dashoffset="125.6" stroke-linecap="round" transform="rotate(-90 22 22)"/></svg></span>
     </button>
 
     <script>
-      // ============ MENU MOBILE ============
+
       const burger = document.getElementById('nav-burger');
       const mobileMenu = document.getElementById('mobile-menu');
 
@@ -77,19 +74,19 @@ import { navLinks } from '../data/site.js';
         document.body.style.overflow = isOpen ? 'hidden' : '';
       });
 
-      // Fermer au clic sur un lien
+
       mobileMenu?.querySelectorAll('a').forEach((link) => {
         link.addEventListener('click', closeMenu);
       });
 
-      // Fermer avec Escape
+
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeMenu();
       });
     </script>
 
     <script>
-      // ============ SCROLL REVEAL SYSTEM ============
+
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const els = document.querySelectorAll('[data-reveal]');
 
@@ -123,7 +120,7 @@ import { navLinks } from '../data/site.js';
         otherEls.forEach((el) => observer.observe(el));
       }
 
-      // ============ PARALLAX FOR FLOATING STATS ============
+
       const mStats = document.querySelectorAll<HTMLElement>('.m-stat');
       let ticking = false;
       window.addEventListener('scroll', () => {
@@ -139,10 +136,10 @@ import { navLinks } from '../data/site.js';
           ticking = true;
         }
       });
-      // ============ BACK TO TOP ============
+
       const btt = document.getElementById('back-to-top');
       const bttCircle = btt?.querySelector('circle');
-      const CIRC = 125.6; // 2 * PI * r(20)
+      const CIRC = 125.6;
 
       let bttTicking = false;
       window.addEventListener('scroll', () => {
@@ -151,10 +148,10 @@ import { navLinks } from '../data/site.js';
             const scrolled = window.pageYOffset;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
 
-            // Apparait après 600px de scroll
+
             btt?.classList.toggle('visible', scrolled > 600);
 
-            // Anneau de progression
+
             if (bttCircle && docHeight > 0) {
               const progress = Math.min(scrolled / docHeight, 1);
               bttCircle.style.strokeDashoffset = String(CIRC * (1 - progress));

@@ -31,7 +31,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ============ SCROLL REVEAL ============ */
 [data-reveal] {
   opacity: 0;
   transform: translateY(20px) scale(0.98);
@@ -73,7 +72,6 @@ body {
   }
 }
 
-/* ============ SHARED KEYFRAMES ============ */
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(0.85); }
@@ -95,7 +93,6 @@ body {
   100% { background-position: 200% 50%; }
 }
 
-/* ============ BACKGROUND GRID ============ */
 .bg-grid {
   position: fixed;
   inset: 0;
@@ -109,7 +106,6 @@ body {
   -webkit-mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, black 20%, transparent 75%);
 }
 
-/* ============ NAVIGATION ============ */
 nav {
   position: fixed;
   top: 0;
@@ -196,7 +192,6 @@ nav {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-/* ============ SECTION HEADER ============ */
 .section-header {
   text-align: center;
   max-width: 700px;
@@ -229,7 +224,6 @@ nav {
   line-height: 1.6;
 }
 
-/* ============ BACK TO TOP ============ */
 .back-to-top {
   position: fixed;
   bottom: 1.5rem;
@@ -317,7 +311,6 @@ nav {
     display: none;
   }
 
-  /* Header glassmorphism en mobile */
   nav {
     background: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(24px) saturate(180%);
@@ -325,7 +318,6 @@ nav {
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
   }
 
-  /* ============ BURGER ============ */
   .nav-burger {
     display: flex;
     flex-direction: column;
@@ -363,7 +355,6 @@ nav {
     transform: translateY(-7px) rotate(-45deg);
   }
 
-  /* ============ MENU MOBILE PLEIN ÉCRAN ============ */
   .mobile-menu {
     position: fixed;
     inset: 0;

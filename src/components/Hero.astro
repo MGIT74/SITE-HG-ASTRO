@@ -28,7 +28,6 @@ import { heroStats } from '../data/site.js';
     ))}
   </div>
 
-  <!-- Bento Grid -->
   <div class="bento-grid">
     <div class="bento-card card-1" data-reveal="scale">
       <div class="integration-icons">
@@ -136,7 +135,6 @@ import { heroStats } from '../data/site.js';
     animation: text-shine 6s linear infinite;
   }
 
-  /* ============ WORD ROTATOR ============ */
   .word-rotator {
     display: inline-flex;
     justify-content: center;
@@ -245,7 +243,6 @@ import { heroStats } from '../data/site.js';
     color: var(--ink-tertiary);
   }
 
-  /* ============ BENTO GRID ============ */
   .bento-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -383,7 +380,6 @@ import { heroStats } from '../data/site.js';
   .bento-card:hover .integration-icon:nth-child(2) { transform: translateY(-4px); }
   .bento-card:hover .integration-icon:nth-child(3) { transform: translateY(4px); }
 
-  /* AI head */
   .ai-head {
     position: absolute;
     inset: 0;
@@ -492,7 +488,6 @@ import { heroStats } from '../data/site.js';
     .hero-stats-bar { gap: 1.5rem; padding: 1.75rem 1.5rem; }
     .stat-bar-value { font-size: 1.9rem; }
 
-    /* Sur mobile : "et Multipliez" passe à la ligne pour éviter le déséquilibre */
     .hero-title .title-line-1 {
       display: flex;
       flex-direction: column;
@@ -505,7 +500,7 @@ import { heroStats } from '../data/site.js';
 </style>
 
 <script>
-  // Mouse spotlight tracking on bento cards
+
   document.querySelectorAll('.bento-card').forEach((card) => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
@@ -514,14 +509,14 @@ import { heroStats } from '../data/site.js';
     });
   });
 
-  // ============ WORD ROTATOR (Entreprise / SaaS / MVP / Site) ============
+
   const rotatingWords = ['Entreprise', 'SaaS', 'MVP', 'Site'];
   const wordEl = document.getElementById('rotating-word');
   const rotatorBox = wordEl?.closest('.word-rotator');
   let wordIndex = 0;
 
   if (wordEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    // Mesure la largeur de chaque mot (dans le contexte typographique du titre)
+
     const probe = document.createElement('span');
     probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;';
     wordEl.parentElement?.appendChild(probe);
@@ -533,7 +528,7 @@ import { heroStats } from '../data/site.js';
     });
     probe.remove();
 
-    // Anime la largeur du conteneur en douceur vers chaque nouveau mot
+
     function setWidth(wordIdx) {
       if (rotatorBox) rotatorBox.style.width = widths[wordIdx] + 'px';
     }
@@ -545,7 +540,7 @@ import { heroStats } from '../data/site.js';
       setTimeout(() => {
         wordIndex = (wordIndex + 1) % rotatingWords.length;
         wordEl.textContent = rotatingWords[wordIndex];
-        setWidth(wordIndex); // la largeur glisse en parallèle du slide
+        setWidth(wordIndex);
         wordEl.classList.remove('slide-out');
         wordEl.classList.add('slide-in');
 
@@ -554,9 +549,9 @@ import { heroStats } from '../data/site.js';
     }, 2800);
   }
 
-  // ============ COUNT-UP ANIMATION SUR LES STATS ============
+
   function parseStat(value) {
-    // Extrait préfixe, nombre, suffixe : "+40%" → { prefix: '+', num: 40, suffix: '%' }
+
     const match = value.match(/^([^\d]*)([\d.]+)(.*)$/);
     if (!match) return null;
     return { prefix: match[1], num: parseFloat(match[2]), decimals: (match[2].split('.')[1] || '').length, suffix: match[3] };
@@ -578,7 +573,7 @@ import { heroStats } from '../data/site.js';
       const eased = easeOutQuart(progress);
       const current = parsed.num * eased;
 
-      // Formate avec le même nombre de décimales
+
       const formatted = parsed.decimals > 0
         ? current.toFixed(parsed.decimals)
         : Math.round(current).toString();

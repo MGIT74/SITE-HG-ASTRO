@@ -26,7 +26,6 @@ import { plans } from '../data/site.js';
     </div>
 
     <div class="pricing-detail" id="pricing-detail">
-      <!-- Injected by JS -->
     </div>
   </div>
 </section>
@@ -159,7 +158,6 @@ import { plans } from '../data/site.js';
 </style>
 
 <style is:global>
-  /* Styles du panneau détail — injecté dynamiquement par JS, donc global requis */
   .pricing-detail-anim {
     animation: pricing-panel-in 0.45s var(--ease-spring);
   }
@@ -257,7 +255,6 @@ import { plans } from '../data/site.js';
     line-height: 1;
   }
 
-  /* ============ SLOT MACHINE PRICE ============ */
   .slot-amount {
     display: inline-flex;
     overflow: hidden;
@@ -408,12 +405,6 @@ import { plans } from '../data/site.js';
   let currentIndex = 0;
   let renderToken = 0;
 
-  /**
-   * Construit un rouleau de machine à sous pour un montant.
-   * Chaque caractère devient une colonne avec une bande verticale
-   * de chiffres qui défile. Les colonnes défilent de gauche à droite
-   * (délai croissant) comme une vraie machine à sous.
-   */
   function buildSlotMachine(targetText, token) {
     const wrapper = document.createElement('span');
     wrapper.className = 'slot-amount';
@@ -426,11 +417,11 @@ import { plans } from '../data/site.js';
       col.className = 'slot-col';
 
       if (/[0-9]/.test(ch)) {
-        // Colonne qui roule : bande verticale de chiffres 0→9, répétée
+
         const strip = document.createElement('span');
         strip.className = 'slot-strip';
 
-        const loop = 2 + charIndex; // plus de tours pour les colonnes à droite
+        const loop = 2 + charIndex;
         let sequence = '';
         for (let l = 0; l < loop; l++) {
           for (let d = 0; d <= 9; d++) sequence += '<span class="slot-digit">' + d + '</span>';
@@ -442,19 +433,19 @@ import { plans } from '../data/site.js';
         col.appendChild(strip);
         digitCols.push({ strip, charIndex });
       } else {
-        // Caractère statique (€, espace, S...) : apparait en pop
+
         col.classList.add('static');
         col.textContent = ch;
       }
       wrapper.appendChild(col);
     });
 
-    // Lance l'animation : chaque colonne roule puis s'arrête net sur le chiffre cible
+
     requestAnimationFrame(() => {
       digitCols.forEach(({ strip, charIndex }) => {
         const digitsInStrip = strip.querySelectorAll('.slot-digit');
-        // Position finale = le dernier chiffre (celui qu'on veut afficher)
-        const targetY = (digitsInStrip.length - 1) * 1; // 1em par chiffre
+
+        const targetY = (digitsInStrip.length - 1) * 1;
 
         strip.style.transitionDelay = (charIndex * 0.08) + 's';
         strip.classList.add('spinning');
@@ -463,7 +454,7 @@ import { plans } from '../data/site.js';
           strip.style.transform = 'translateY(-' + (targetY * 100) / digitsInStrip.length + '%)';
         });
 
-        // Retire le blur juste avant l'arrêt final
+
         const stopTime = 700 + charIndex * 80;
         setTimeout(() => {
           strip.classList.remove('spinning');
@@ -509,12 +500,12 @@ import { plans } from '../data/site.js';
       </div>
     `;
 
-    // Lance la machine à sous sur le montant
+
     const slotPrice = document.getElementById('slot-price');
     if (/[0-9]/.test(plan.amount)) {
       slotPrice.appendChild(buildSlotMachine(plan.amount, token));
     } else {
-      // "Sur Devis" : simple pop au lieu des rouleaux
+
       slotPrice.innerHTML = '<span class="slot-col static">' + plan.amount + '</span>';
     }
 

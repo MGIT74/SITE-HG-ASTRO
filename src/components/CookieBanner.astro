@@ -1,7 +1,6 @@
 ---
 ---
 
-<!-- ============ BANDEAU COOKIES ============ -->
 <div class="cookie-banner" id="cookie-banner" aria-hidden="true" role="dialog" aria-label="Gestion des cookies">
   <div class="cookie-card">
     <div class="cookie-icon">
@@ -73,7 +72,7 @@
     setTimeout(() => (banner.style.display = 'none'), 450);
   }
 
-  // Affiche le bandeau si pas de choix enregistré
+
   if (!localStorage.getItem('hg-cookies')) {
     setTimeout(() => {
       banner.style.display = 'block';
@@ -106,7 +105,7 @@
     customBtn.textContent = customOpen ? 'Réduire' : 'Personnaliser';
   });
 
-  // "Personnaliser" sauvegarde les préférences cochées et ferme
+
   customBtn?.addEventListener('dblclick', () => {
     saveChoice(
       document.getElementById('cookie-analytics').checked,
@@ -189,7 +188,6 @@
     text-underline-offset: 3px;
   }
 
-  /* Préférences détaillées */
   .cookie-details {
     display: none;
     flex-direction: column;
@@ -242,7 +240,6 @@
     white-space: nowrap;
   }
 
-  /* Switch iOS */
   .cookie-switch {
     position: relative;
     display: inline-block;
@@ -287,7 +284,6 @@
     transform: translateX(18px);
   }
 
-  /* Boutons */
   .cookie-actions {
     display: flex;
     flex-direction: column;

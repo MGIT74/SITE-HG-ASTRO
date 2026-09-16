@@ -28,7 +28,6 @@ const techs = [
 
   <div class="tech-slider" data-reveal="fade">
     <div class="tech-track" id="tech-track">
-      <!-- Deux copies du groupe pour un défilement infini sans saut -->
       {[0, 1].map(() => (
         <div class="tech-group">
           {techs.map((tech) => (
@@ -57,13 +56,11 @@ const techs = [
     overflow: hidden;
   }
 
-  /* ============ SLIDER INFINI ============ */
   .tech-slider {
     max-width: 1200px;
     margin: 0 auto;
     overflow: hidden;
     position: relative;
-    /* Fondu sur les bords gauche et droit */
     mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
     -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
   }
@@ -74,7 +71,6 @@ const techs = [
     animation: tech-scroll 90s linear infinite;
   }
 
-  /* Pause au survol */
   .tech-slider:hover .tech-track {
     animation-play-state: paused;
   }

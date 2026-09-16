@@ -32,7 +32,6 @@ import { footerCols } from '../data/site.js';
   </div>
 </footer>
 
-<!-- ============ MODAL MENTIONS LÉGALES ============ -->
 <div class="legal-overlay" id="legal-overlay" aria-hidden="true">
   <div class="legal-modal" role="dialog" aria-modal="true" aria-labelledby="legal-title">
     <button class="legal-close" id="legal-close" aria-label="Fermer">
@@ -103,12 +102,12 @@ import { footerCols } from '../data/site.js';
   openBtn?.addEventListener('click', openModal);
   closeBtn?.addEventListener('click', closeModal);
 
-  // Fermer au clic sur le fond
+
   overlay?.addEventListener('click', (e) => {
     if (e.target === overlay) closeModal();
   });
 
-  // Fermer avec Escape
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();
   });
@@ -216,7 +215,6 @@ import { footerCols } from '../data/site.js';
     background: rgba(255, 255, 255, 0.08);
   }
 
-  /* ============ MODAL MENTIONS LÉGALES ============ */
   .legal-overlay {
     position: fixed;
     inset: 0;
