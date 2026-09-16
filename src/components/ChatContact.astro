@@ -16,19 +16,20 @@ const services = [
   <svg class="chat-fab-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 </button>
 
-<!-- ============ POPUP CONTACT ============ -->
+<!-- ============ POPUP CONTACT CONTEXTUEL ============ -->
 <div class="chat-overlay" id="chat-overlay" aria-hidden="true">
   <div class="chat-modal" role="dialog" aria-modal="true" aria-label="Contact">
 
-    <!-- ÉTAPE 1 : QUALIFICATION -->
+    <!-- ÉTAPE 1 : COORDONNÉES -->
     <div class="chat-step chat-step-form" id="chat-step-form">
       <button class="chat-modal-close" id="chat-close-form" aria-label="Fermer">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
 
       <div class="chat-step-badge">Réponse en moins de 2 min</div>
-      <h3>Parlons de votre projet</h3>
-      <p class="chat-step-sub">Sélectionnez ce qui vous intéresse, notre agent IA vous guide instantanément.</p>
+      <h3 id="chat-form-title">Parlons de votre projet</h3>
+      <p class="chat-context" id="chat-context" hidden></p>
+      <p class="chat-step-sub">Choisissez votre mode de contact préféré :</p>
 
       <form id="chat-lead-form" novalidate>
         <div class="chat-fields">
@@ -56,15 +57,44 @@ const services = [
 
         <p class="chat-error" id="chat-form-error" hidden>Merci de renseigner votre nom et un email valide.</p>
 
-        <button type="submit" class="chat-submit">
-          Discuter avec notre agent IA
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </button>
+        <div class="chat-mode-choice">
+          <button type="submit" class="chat-mode-btn chat-mode-vocal" data-mode="vocal">
+            <span class="chat-mode-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+            </span>
+            <span class="chat-mode-label">
+              <strong>Discuter avec l'IA</strong>
+              <small>Vocal ou texte — réponse instantanée</small>
+            </span>
+          </button>
+          <button type="button" class="chat-mode-btn chat-mode-form" id="chat-mode-form-btn">
+            <span class="chat-mode-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </span>
+            <span class="chat-mode-label">
+              <strong>Demande de devis</strong>
+              <small>Formulaire + message détaillé</small>
+            </span>
+          </button>
+        </div>
         <p class="chat-privacy">Vos données restent confidentielles — jamais partagées.</p>
       </form>
+
+      <!-- Formulaire devis détaillé (mode 2) -->
+      <div class="chat-quote-form" id="chat-quote-form" hidden>
+        <div class="chat-field">
+          <textarea id="quote-message" rows="4" placeholder="Décrivez votre projet en quelques lignes..."></textarea>
+        </div>
+        <p class="chat-error" id="quote-error" hidden>Merci de décrire votre projet (10 caractères minimum).</p>
+        <button class="chat-submit" id="quote-submit">
+          Envoyer ma demande
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
+        <button type="button" class="chat-back-link" id="chat-back-to-modes">← Retour</button>
+      </div>
     </div>
 
-    <!-- ÉTAPE 2 : CHAT IA -->
+    <!-- ÉTAPE 2 : CHAT IA (vocal + texte) -->
     <div class="chat-step chat-step-chat" id="chat-step-chat" hidden>
       <div class="chat-header">
         <div class="chat-agent">
@@ -73,26 +103,40 @@ const services = [
           </div>
           <div class="chat-agent-info">
             <strong>Agent IA Hands Graphic</strong>
-            <span><i class="chat-online-dot"></i>En ligne — répond instantanément</span>
+            <span><i class="chat-online-dot"></i>En ligne — <em id="chat-mode-label">vocal</em></span>
           </div>
         </div>
-        <button class="chat-modal-close" id="chat-close-chat" aria-label="Fermer">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
+        <div class="chat-header-actions">
+          <button class="chat-sound-toggle" id="chat-sound-toggle" aria-label="Activer/désactiver la voix" title="Voix ElevenLabs">
+            <svg class="snd-on" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+            <svg class="chat-sound-off" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+          </button>
+          <button class="chat-modal-close" id="chat-close-chat" aria-label="Fermer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
       </div>
 
       <div class="chat-messages" id="chat-messages"></div>
+
+      <div class="chat-voice-orb" id="chat-voice-orb" hidden>
+        <div class="voice-orb-core"></div>
+        <span class="voice-orb-hint">Appuyez pour parler</span>
+      </div>
 
       <div class="chat-typing" id="chat-typing" hidden>
         <span></span><span></span><span></span>
       </div>
 
-      <form class="chat-input-bar" id="chat-input-form">
-        <input type="text" id="chat-input" placeholder="Écrivez votre message..." autocomplete="off" />
-        <button type="submit" aria-label="Envoyer">
+      <div class="chat-input-bar" id="chat-input-bar">
+        <button class="chat-mic" id="chat-mic" aria-label="Parler" type="button">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="12" y2="23" style="display:none"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+        </button>
+        <input type="text" id="chat-input" placeholder="Écrivez ou appuyez sur le micro..." autocomplete="off" />
+        <button class="chat-send" id="chat-send" aria-label="Envoyer" type="button">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
         </button>
-      </form>
+      </div>
     </div>
   </div>
 </div>
@@ -105,23 +149,87 @@ const services = [
   const stepForm = document.getElementById('chat-step-form');
   const stepChat = document.getElementById('chat-step-chat');
   const leadForm = document.getElementById('chat-lead-form');
+  const quoteForm = document.getElementById('chat-quote-form');
   const nameInput = document.getElementById('lead-name');
   const emailInput = document.getElementById('lead-email');
   const phoneInput = document.getElementById('lead-phone');
   const errorEl = document.getElementById('chat-form-error');
+  const contextEl = document.getElementById('chat-context');
+  const titleEl = document.getElementById('chat-form-title');
   const messagesEl = document.getElementById('chat-messages');
   const typingEl = document.getElementById('chat-typing');
-  const inputForm = document.getElementById('chat-input-form');
   const chatInput = document.getElementById('chat-input');
+  const micBtn = document.getElementById('chat-mic');
+  const soundToggle = document.getElementById('chat-sound-toggle');
+  const voiceOrb = document.getElementById('chat-voice-orb');
 
   let lead = { name: '', email: '', phone: '', services: [] };
+  let soundEnabled = true;
+  let voiceMode = true;
+  let recognition = null;
+  let isRecording = false;
+
+  // ============ CONTEXTE DYNAMIQUE PAR BOUTON ============
+  const CHAT_CONTEXTS = {
+    site: { services: ['site'], label: 'le Site Vitrine' },
+    agents: { services: ['agents'], label: 'les Agents IA' },
+    marketing: { services: ['marketing'], label: 'le Marketing Digital' },
+    automatisation: { services: ['automatisation'], label: "l'Automatisation" },
+    app: { services: ['app'], label: 'les Applications Métier' },
+    geo: { services: ['marketing'], label: 'être cité par les IA' },
+    demo: { services: [], label: null },
+    generic: { services: [], label: null },
+  };
+
+  let currentContext = 'generic';
+
+  function applyContext(key, serviceLabel) {
+    const ctx = CHAT_CONTEXTS[key] || CHAT_CONTEXTS.generic;
+    currentContext = key;
+
+    const checkboxes = document.querySelectorAll('#chat-services input');
+    let matched = false;
+
+    checkboxes.forEach((c) => {
+      let shouldCheck = ctx.services.includes(c.value);
+
+      // Contexte pricing : match par nom de plan
+      if (key === 'pricing' && serviceLabel) {
+        const s = serviceLabel.toLowerCase();
+        if (s.includes('site')) shouldCheck = c.value === 'site';
+        else if (s.includes('marketing')) shouldCheck = c.value === 'marketing';
+        else if (s.includes('essential') || s.includes('business') || s.includes('enterprise')) shouldCheck = c.value === 'automatisation';
+        if (shouldCheck) matched = true;
+      }
+      c.checked = shouldCheck;
+    });
+
+    if (ctx.label) {
+      contextEl.textContent = 'Vous êtes intéressé par : ' + ctx.label;
+      contextEl.hidden = false;
+    } else if (key === 'pricing' && serviceLabel) {
+      contextEl.textContent = 'Vous êtes intéressé par : ' + serviceLabel;
+      contextEl.hidden = false;
+    } else {
+      contextEl.hidden = true;
+    }
+  }
+
+  // Intercepte tous les CTA avec data-chat
+  document.querySelectorAll('[data-chat]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      applyContext(btn.getAttribute('data-chat'), btn.getAttribute('data-service'));
+      openModal();
+    });
+  });
 
   function openModal() {
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden', 'false');
     fab?.classList.add('open');
     document.body.style.overflow = 'hidden';
-    setTimeout(() => (nameInput || chatInput)?.focus(), 350);
+    setTimeout(() => nameInput?.focus(), 350);
   }
 
   function closeModal() {
@@ -129,12 +237,15 @@ const services = [
     overlay.setAttribute('aria-hidden', 'true');
     fab?.classList.remove('open');
     document.body.style.overflow = '';
+    stopRecording();
+    stopSpeaking();
   }
 
   fab?.addEventListener('click', () => {
     if (overlay.classList.contains('open')) {
       closeModal();
     } else {
+      applyContext(currentContext);
       openModal();
     }
   });
@@ -148,71 +259,28 @@ const services = [
     if (e.key === 'Escape') closeModal();
   });
 
-  // Validation étape 1
   function isValidEmail(v) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
   }
 
-  leadForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
+  function collectLead() {
     const name = nameInput.value.trim();
     const email = emailInput.value.trim();
 
     if (!name || !isValidEmail(email)) {
       errorEl.hidden = false;
       (!name ? nameInput : emailInput).focus();
-      return;
+      return null;
     }
     errorEl.hidden = true;
 
-    lead = {
+    return {
       name,
       email,
       phone: phoneInput.value.trim(),
       services: Array.from(document.querySelectorAll('#chat-services input:checked')).map((c) => c.value),
+      context: currentContext,
     };
-
-    startChat();
-  });
-
-  function bubble(text, who) {
-    const div = document.createElement('div');
-    div.className = 'chat-msg ' + (who === 'user' ? 'chat-msg-user' : 'chat-msg-bot');
-    div.textContent = text;
-    messagesEl.appendChild(div);
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-  }
-
-  let who = 'bot';
-
-  function showTyping(ms) {
-    typingEl.hidden = false;
-    return new Promise((res) => setTimeout(() => { typingEl.hidden = true; res(); }, ms));
-  }
-
-  async function botSay(text, delay) {
-    await showTyping(delay || 900);
-    who = 'bot';
-    bubble(text, 'bot');
-    who = 'user';
-  }
-
-  async function startChat() {
-    stepForm.hidden = true;
-    stepChat.hidden = false;
-
-    const firstName = lead.name.split(' ')[0];
-    const servicesLabel = lead.services.length
-      ? lead.services.join(', ')
-      : 'vos besoins';
-
-    const greeting =
-      'Bonjour ' + firstName + ' ! 👋 Je suis l\'agent IA de Hands Graphic. ' +
-      'Je vois que vous vous intéresse à : ' + servicesLabel() + '. Comment puis-je vous aider ?';
-
-    who = 'user';
-    await botSay(greeting, 1100);
-    chatInput.focus();
   }
 
   function servicesLabel() {
@@ -230,49 +298,266 @@ const services = [
     return labels.slice(0, -1).join(', ') + ' et ' + labels[labels.length - 1];
   }
 
-  // Envoi message vers n8n
-  inputForm?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const text = chatInput.value.trim();
-    if (!text) return;
+  function bubble(text, who) {
+    const div = document.createElement('div');
+    div.className = 'chat-msg ' + (who === 'user' ? 'chat-msg-user' : 'chat-msg-bot');
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return div;
+  }
 
-    who = 'user';
-    bubble(text, 'user');
-    chatInput.value = '';
+  async function speak(text) {
+    if (!soundEnabled || !WEBHOOK_URL) return;
+    try {
+      const res = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'tts', text, sessionId: getSessionId() }),
+      });
+      if (!res.ok) return;
+      const blob = await res.blob();
+      if (!blob.type.includes('audio')) return;
+      const audio = new Audio(URL.createObjectURL(blob));
+      audio.play();
+    } catch (e) {}
+  }
 
-    if (WEBHOOK_URL) {
-      try {
-        typingEl.hidden = false;
-        const res = await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            lead,
-            message: text,
-            sessionId: getSessionId(),
-          }),
-        });
-        const data = await res.json();
-        typingEl.hidden = true;
-        const reply =
-          data.reply || data.message || data.output || (Array.isArray(data) && data[0]?.output) || 'Désolé, je n\'ai pas pu traiter votre demande.';
-        who = 'bot';
-        bubble(reply, 'bot');
-        who = 'user';
-      } catch (err) {
-        typingEl.hidden = true;
-        who = 'bot';
-        bubble('Oups, une erreur est survenue. Réessayez ou contactez-nous directement.', 'bot');
-        who = 'user';
+  let activeAudio = null;
+  function stopSpeaking() {
+    if (activeAudio) {
+      activeAudio.pause();
+      activeAudio = null;
+    }
+  }
+
+  async function sendToAgent(text) {
+    if (!WEBHOOK_URL) {
+      await showTyping(1200);
+      bubble('Parfait, je note : « ' + text + ' ». Le mode IA connecté sera actif dès que le webhook n8n sera branché !', 'bot');
+      return;
+    }
+
+    typingEl.hidden = false;
+    try {
+      const res = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          lead,
+          message: text,
+          sessionId: getSessionId(),
+        }),
+      });
+      const data = await res.json();
+      typingEl.hidden = true;
+      const reply =
+        data.reply || data.message || data.output || (Array.isArray(data) && data[0]?.output) || 'Désolé, je n\'ai pas pu traiter votre demande.';
+
+      bubble(reply, 'bot');
+      activeAudio = await speak(reply);
+    } catch (err) {
+      typingEl.hidden = true;
+      bubble('Oups, une erreur est survenue. Réessayez dans un instant.', 'bot');
+    }
+  }
+
+  function showTyping(ms) {
+    typingEl.hidden = false;
+    return new Promise((res) => setTimeout(() => { typingEl.hidden = true; res(); }, ms));
+  }
+
+  // ============ MODE VOCAL (Web Speech API) ============
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  function startRecording() {
+    if (!SpeechRecognition) {
+      bubble('La dictée vocale n\'est pas supportée par ce navigateur. Écrivez votre message !', 'bot');
+      return;
+    }
+
+    recognition = new SpeechRecognition();
+    recognition.lang = 'fr-FR';
+    recognition.continuous = false;
+    recognition.interimResults = true;
+
+    isRecording = true;
+    micBtn.classList.add('recording');
+    voiceOrb.hidden = false;
+
+    recognition.onresult = (event) => {
+      let transcript = '';
+      for (let i = 0; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
       }
+      chatInput.value = transcript;
+    };
+
+    recognition.onend = () => {
+      isRecording = false;
+      micBtn.classList.remove('recording');
+      voiceOrb.hidden = true;
+      const text = chatInput.value.trim();
+      if (text) {
+        chatInput.value = '';
+        sendUserMessage(text);
+      }
+    };
+
+    recognition.onerror = () => {
+      isRecording = false;
+      micBtn.classList.remove('recording');
+      voiceOrb.hidden = true;
+    };
+
+    recognition.start();
+  }
+
+  function stopRecording() {
+    if (recognition && isRecording) {
+      recognition.stop();
+      isRecording = false;
+      micBtn?.classList.remove('recording');
+      if (voiceOrb) voiceOrb.hidden = true;
+    }
+  }
+
+  micBtn?.addEventListener('click', () => {
+    if (isRecording) {
+      stopRecording();
     } else {
-      // Démo en attendant le webhook n8n
-      await botSay('Je note votre demande : « ' + text + ' ». Un membre de l\'équipe revient vers vous très vite !', 1200);
+      startRecording();
     }
   });
 
+  // ============ ENVOI ============
+  async function sendUserMessage(text) {
+    bubble(text, 'user');
+
+    if (!WEBHOOK_URL) {
+      await showTyping(1200);
+      bubble('Je note votre demande : « ' + text + ' ». Le webhook n8n sera connecté très bientôt !', 'bot');
+      return;
+    }
+
+    typingEl.hidden = false;
+    try {
+      const res = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lead, message: text, sessionId: getSessionId() }),
+      });
+      const data = await res.json();
+      typingEl.hidden = true;
+      const reply =
+        data.reply || data.message || data.output || (Array.isArray(data) && data[0]?.output) || 'Désolé, je n\'ai pas pu traiter votre demande.';
+
+      bubble(reply, 'bot');
+      speak(reply);
+    } catch (err) {
+      typingEl.hidden = true;
+      bubble('Oups, une erreur est survenue. Réessayez dans un instant.', 'bot');
+    }
+  }
+
+  document.getElementById('chat-send')?.addEventListener('click', () => {
+    const text = chatInput.value.trim();
+    if (!text) return;
+    chatInput.value = '';
+    stopSpeaking();
+    sendUserMessage(text);
+  });
+
+  chatInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      const text = chatInput.value.trim();
+      if (!text) return;
+      chatInput.value = '';
+      stopSpeaking();
+      sendUserMessage(text);
+    }
+  });
+
+  soundToggle?.addEventListener('click', () => {
+    soundEnabled = !soundEnabled;
+    soundToggle.classList.toggle('muted', !soundEnabled);
+    if (!soundEnabled) stopSpeaking();
+  });
+
+  // ============ DÉMARRAGE DU CHAT ============
+  async function startChat() {
+    stepForm.hidden = true;
+    stepChat.hidden = false;
+
+    const firstName = lead.name.split(' ')[0];
+    const greeting =
+      'Bonjour ' + firstName + ' ! 👋 Je suis l\'agent IA de Hands Graphic. Je vois que vous vous intéressez à ' +
+      servicesLabel() + '. Comment puis-je vous aider ? Vous pouvez me parler au micro ou écrire.';
+
+    bubble(greeting, 'bot');
+    speak(greeting.replace(/👋 /g, ''));
+    chatInput.focus();
+  }
+
+  leadForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const collected = collectLead();
+    if (!collected) return;
+    lead = collected;
+    startChat();
+  });
+
+  // ============ MODE DEVIS (formulaire avec message) ============
+  document.getElementById('chat-mode-form-btn')?.addEventListener('click', () => {
+    leadForm.hidden = true;
+    document.getElementById('chat-mode-form-btn').closest('.chat-mode-choice').style.display = 'none';
+    document.querySelector('.chat-step-form h3').textContent = 'Votre demande de devis';
+    quoteForm.hidden = false;
+  });
+
+  document.getElementById('chat-back-to-modes')?.addEventListener('click', () => {
+    quoteForm.hidden = true;
+    leadForm.hidden = false;
+    document.querySelector('.chat-mode-choice').style.display = 'flex';
+    titleEl.textContent = 'Parlons de votre projet';
+  });
+
+  document.getElementById('quote-submit')?.addEventListener('click', () => {
+    const message = document.getElementById('quote-message').value.trim();
+    const errorEl2 = document.getElementById('quote-error');
+
+    if (!message || message.length < 10) {
+      errorEl2.hidden = false;
+      return;
+    }
+    errorEl2.hidden = true;
+
+    const collected = collectLead();
+    if (!collected) {
+      quoteForm.hidden = true;
+      leadForm.hidden = false;
+      document.querySelector('.chat-mode-choice').style.display = 'flex';
+      quoteForm.hidden = true;
+      return;
+    }
+    lead = { ...collected, message };
+
+    if (WEBHOOK_URL) {
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'quote', lead, sessionId: getSessionId() }),
+      }).catch(() => {});
+    }
+
+    titleEl.textContent = 'Demande envoyée !';
+    quoteForm.innerHTML =
+      '<div class="quote-success"><div class="quote-success-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div><h4>Merci ' + lead.name.split(' ')[0] + ' !</h4><p>Votre demande a bien été reçue. Nous revenons vers vous sous 24h ouvrées.</p></div>';
+  });
+
   function getSessionId() {
-    let id = sessionStorage.getItem('hg-chat-session');
+    let id = localStorage.getItem('hg-chat-session');
     if (!id) {
       id = 'sess-' + Math.random().toString(36).slice(2) + Date.now().toString(36);
       localStorage.setItem('hg-chat-session', id);
@@ -328,16 +613,15 @@ const services = [
     50% { opacity: 0.6; transform: scale(0.85); }
   }
 
-  .chat-fab-icon {
+  .chat-fab-icon,
+  .chat-fab-close {
     position: absolute;
     transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .chat-fab-close {
-    position: absolute;
     opacity: 0;
     transform: rotate(-90deg) scale(0.6);
-    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .chat-fab.open .chat-fab-icon {
@@ -379,7 +663,7 @@ const services = [
     border: 1px solid rgba(255, 255, 255, 0.7);
     border-radius: 26px;
     width: min(460px, calc(100vw - 2rem));
-    max-height: min(680px, calc(100vh - 2rem));
+    max-height: min(700px, calc(100vh - 2rem));
     display: flex;
     flex-direction: column;
     box-shadow: 0 32px 80px rgba(0, 0, 0, 0.28);
@@ -413,10 +697,11 @@ const services = [
     transform: rotate(90deg);
   }
 
-  /* ============ ÉTAPE 1 : FORMULAIRE ============ */
+  /* ============ ÉTAPE 1 ============ */
   .chat-step-form {
     padding: 2rem 1.75rem 1.5rem;
     position: relative;
+    overflow-y: auto;
   }
 
   .chat-step-form .chat-modal-close {
@@ -454,6 +739,17 @@ const services = [
     margin-bottom: 0.4rem;
   }
 
+  .chat-context {
+    display: inline-block;
+    background: rgba(0, 113, 227, 0.08);
+    color: #0071e3;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    border-radius: 50px;
+    margin-bottom: 0.6rem;
+  }
+
   .chat-step-sub {
     font-size: 0.87rem;
     color: #6e6e73;
@@ -474,7 +770,8 @@ const services = [
     gap: 0.65rem;
   }
 
-  .chat-field input {
+  .chat-field input,
+  .chat-field textarea {
     width: 100%;
     padding: 0.75rem 1rem;
     border: 1.5px solid rgba(0, 0, 0, 0.1);
@@ -485,15 +782,18 @@ const services = [
     color: #1d1d1f;
     outline: none;
     transition: all 0.25s ease;
+    resize: vertical;
   }
 
-  .chat-field input:focus {
+  .chat-field input:focus,
+  .chat-field textarea:focus {
     border-color: #0071e3;
     background: white;
     box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
   }
 
-  .chat-field input::placeholder {
+  .chat-field input::placeholder,
+  .chat-field textarea::placeholder {
     color: #a1a1a6;
   }
 
@@ -506,6 +806,7 @@ const services = [
 
   .chat-service-chip {
     cursor: pointer;
+    position: relative;
   }
 
   .chat-service-chip input {
@@ -544,28 +845,79 @@ const services = [
     font-weight: 500;
   }
 
-  .chat-submit {
-    width: 100%;
+  .chat-mode-choice {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .chat-mode-btn {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.9rem 1.5rem;
-    border: none;
-    border-radius: 50px;
-    background: #1d1d1f;
-    color: white;
-    font-family: inherit;
-    font-size: 0.92rem;
-    font-weight: 600;
+    gap: 0.9rem;
+    width: 100%;
+    padding: 0.95rem 1.1rem;
+    border-radius: 18px;
+    border: 1.5px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.65);
     cursor: pointer;
+    text-align: left;
+    font-family: inherit;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
-  .chat-submit:hover {
-    background: #000;
+  .chat-mode-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .chat-mode-vocal {
+    background: linear-gradient(135deg, #1d1d1f, #2c2c2e);
+    border-color: transparent;
+  }
+
+  .chat-mode-vocal:hover {
+    background: linear-gradient(135deg, #000, #1d1d1f);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+  }
+
+  .chat-mode-vocal .chat-mode-label strong {
+    color: white;
+    font-size: 0.95rem;
+    display: block;
+  }
+
+  .chat-mode-vocal .chat-mode-label small {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+  }
+
+  .chat-mode-vocal .chat-mode-icon {
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+  }
+
+  .chat-mode-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: rgba(0, 113, 227, 0.08);
+    color: #0071e3;
+  }
+
+  .chat-mode-form .chat-mode-label strong {
+    display: block;
+    font-size: 0.9rem;
+    color: #1d1d1f;
+  }
+
+  .chat-mode-form .chat-mode-label small {
+    font-size: 0.75rem;
+    color: #86868b;
   }
 
   .chat-privacy {
@@ -573,6 +925,48 @@ const services = [
     font-size: 0.7rem;
     color: #a1a1a6;
     margin-top: 0.85rem;
+  }
+
+  .chat-back-link {
+    display: block;
+    margin: 0.75rem auto 0;
+    background: none;
+    border: none;
+    color: #6e6e73;
+    font-size: 0.8rem;
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  .chat-back-link:hover {
+    color: #1d1d1f;
+  }
+
+  .quote-success {
+    text-align: center;
+    padding: 1.5rem 0;
+  }
+
+  .quote-success-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(48, 209, 88, 0.12);
+    color: #248a3d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+  }
+
+  .quote-success h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .quote-success p {
+    font-size: 0.87rem;
+    color: #6e6e73;
   }
 
   /* ============ ÉTAPE 2 : CHAT ============ */
@@ -635,13 +1029,35 @@ const services = [
     font-weight: 600;
   }
 
-  .chat-online-dot {
-    width: 7px;
-    height: 7px;
-    background: #30d158;
-    border-radius: 50%;
-    animation: fab-pulse 2s ease-in-out infinite;
+  .chat-agent-info em {
+    font-style: normal;
   }
+
+  .chat-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .chat-sound-toggle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.06);
+    color: #6e6e73;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+  }
+
+  .chat-sound-toggle .chat-sound-off { display: none; }
+  .chat-sound-toggle .chat-sound-on { display: block; }
+
+  .chat-sound-toggle.muted .chat-sound-off { display: block; }
+  .chat-sound-toggle.muted .chat-sound-on { display: none; }
 
   .chat-messages {
     flex: 1;
@@ -650,7 +1066,7 @@ const services = [
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
-    min-height: 260px;
+    min-height: 240px;
   }
 
   .chat-msg {
@@ -709,14 +1125,85 @@ const services = [
     30% { transform: translateY(-5px); opacity: 1; }
   }
 
+  .chat-voice-orb {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    z-index: 10;
+  }
+
+  .chat-voice-orb[hidden] {
+    display: none;
+  }
+
+  .voice-orb-core {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #5eb8ff, #0a84ff 45%, #0051a2);
+    box-shadow:
+      0 0 60px rgba(10, 132, 255, 0.6),
+      0 0 120px rgba(10, 132, 255, 0.3);
+    animation: voice-listen 1.1s ease-in-out infinite;
+  }
+
+  @keyframes voice-listen {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.12); opacity: 0.85; }
+  }
+
+  .voice-orb-hint {
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
   .chat-input-bar {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.55rem;
     padding: 0.85rem 1rem;
     border-top: 1px solid rgba(0, 0, 0, 0.06);
     background: rgba(255, 255, 255, 0.55);
     flex-shrink: 0;
+  }
+
+  .chat-mic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.06);
+    color: #1d1d1f;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .chat-mic:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.06);
+  }
+
+  .chat-mic.recording {
+    background: #ff3b30;
+    color: white;
+    animation: mic-pulse 1.2s ease-in-out infinite;
+  }
+
+  @keyframes mic-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(255, 59, 48, 0); }
   }
 
   .chat-input-bar input {
@@ -729,13 +1216,14 @@ const services = [
     font-size: 0.88rem;
     outline: none;
     transition: border-color 0.25s ease;
+    min-width: 0;
   }
 
   .chat-input-bar input:focus {
     border-color: #0071e3;
   }
 
-  .chat-input-bar button {
+  .chat-send {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -750,7 +1238,7 @@ const services = [
     transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
-  .chat-input-bar button:hover {
+  .chat-send:hover {
     background: #0058b9;
     transform: scale(1.08);
   }
@@ -758,7 +1246,6 @@ const services = [
   @media (max-width: 768px) {
     .chat-modal {
       border-radius: 22px;
-      max-height: calc(100vh - 2rem);
     }
 
     .chat-fields-row {

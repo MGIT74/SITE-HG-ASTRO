@@ -28,7 +28,7 @@ import { navLinks } from '../data/site.js';
           <li><a href={link.href}>{link.label}</a></li>
         ))}
       </ul>
-      <a href="#contact" class="btn-nav">Réserver une démo →</a>
+      <a href="#contact" class="btn-nav" data-chat="demo">Réserver une démo →</a>
 
       <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
         <span></span>
@@ -45,7 +45,7 @@ import { navLinks } from '../data/site.js';
           </li>
         ))}
       </ul>
-      <a href="#contact" class="btn-mobile-cta">Réserver un Audit Gratuit →</a>
+      <a href="#contact" class="btn-mobile-cta" data-chat="generic">Réserver un Audit Gratuit →</a>
     </div>
 
     <slot />

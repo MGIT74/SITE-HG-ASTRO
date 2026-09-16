@@ -487,7 +487,7 @@ import { plans } from '../data/site.js';
           </div>
         </div>
         <p class="pricing-detail-desc">${plan.desc}</p>
-        <a href="#contact" class="btn-pricing-detail">${plan.cta}</a>
+        <a href="#contact" class="btn-pricing-detail" data-chat="pricing" data-service="${plan.name}">${plan.cta}</a>
         <div class="pricing-included-title">Ce qui est inclus :</div>
         <ul class="pricing-included">
           ${plan.features
