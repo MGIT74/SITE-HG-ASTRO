@@ -41,7 +41,7 @@ const services = [
               <input type="email" id="lead-email" placeholder="Votre email *" required autocomplete="email" />
             </div>
             <div class="chat-field">
-              <input type="tel" id="lead-phone" placeholder="Téléphone" autocomplete="tel" />
+              <input type="tel" id="lead-phone" placeholder="Téléphone *" required autocomplete="tel" />
             </div>
           </div>
         </div>
@@ -55,7 +55,7 @@ const services = [
           ))}
         </div>
 
-        <p class="chat-error" id="chat-form-error" hidden>Merci de renseigner votre nom et un email valide.</p>
+        <p class="chat-error" id="chat-form-error" hidden>Merci de renseigner votre nom, un email valide et un numéro de téléphone.</p>
 
         <div class="chat-mode-choice">
           <button type="submit" class="chat-mode-btn chat-mode-vocal" data-mode="vocal">
@@ -263,13 +263,18 @@ const services = [
     return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
   }
 
+  function isValidPhone(v) {
+    return /^[+0-9][0-9\s().-]{7,}$/.test(v.trim());
+  }
+
   function collectLead() {
     const name = nameInput.value.trim();
     const email = emailInput.value.trim();
+    const phone = phoneInput.value.trim();
 
-    if (!name || !isValidEmail(email)) {
+    if (!name || !isValidEmail(email) || !isValidPhone(phone)) {
       errorEl.hidden = false;
-      (!name ? nameInput : emailInput).focus();
+      (!name ? nameInput : !isValidEmail(email) ? emailInput : phoneInput).focus();
       return null;
     }
     errorEl.hidden = true;
@@ -277,7 +282,7 @@ const services = [
     return {
       name,
       email,
-      phone: phoneInput.value.trim(),
+      phone,
       services: Array.from(document.querySelectorAll('#chat-services input:checked')).map((c) => c.value),
       context: currentContext,
     };
