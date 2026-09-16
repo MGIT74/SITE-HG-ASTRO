@@ -138,9 +138,12 @@ import { heroStats } from '../data/site.js';
 
   /* ============ WORD ROTATOR ============ */
   .word-rotator {
-    display: inline-block;
-    position: relative;
-    text-align: left;
+    display: inline-flex;
+    justify-content: center;
+    vertical-align: bottom;
+    white-space: nowrap;
+    transition: width 0.5s var(--ease-smooth);
+    will-change: width;
   }
 
   .word-rotator-word {
@@ -508,20 +511,23 @@ import { heroStats } from '../data/site.js';
   let wordIndex = 0;
 
   if (wordEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    // Fige la largeur du conteneur sur le mot le plus long
-    // pour éviter tout saut de layout pendant la rotation
+    // Mesure la largeur de chaque mot (dans le contexte typographique du titre)
     const probe = document.createElement('span');
     probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;';
-    rotatorBox?.appendChild(probe);
-    let maxWidth = 0;
-    rotatingWords.forEach((w) => {
+    wordEl.parentElement?.appendChild(probe);
+    const widths = rotatingWords.map((w) => {
       probe.textContent = w;
-      if (probe.offsetWidth > maxWidth) maxWidth = probe.offsetWidth;
+      const style = getComputedStyle(wordEl);
+      probe.style.font = style.font;
+      return probe.offsetWidth;
     });
     probe.remove();
-    if (rotatorBox && maxWidth > 0) {
-      rotatorBox.style.minWidth = maxWidth + 'px';
+
+    // Anime la largeur du conteneur en douceur vers chaque nouveau mot
+    function setWidth(wordIdx) {
+      if (rotatorBox) rotatorBox.style.width = widths[wordIdx] + 'px';
     }
+    setWidth(0);
 
     setInterval(() => {
       wordEl.classList.add('slide-out');
@@ -529,6 +535,7 @@ import { heroStats } from '../data/site.js';
       setTimeout(() => {
         wordIndex = (wordIndex + 1) % rotatingWords.length;
         wordEl.textContent = rotatingWords[wordIndex];
+        setWidth(wordIndex); // la largeur glisse en parallèle du slide
         wordEl.classList.remove('slide-out');
         wordEl.classList.add('slide-in');
 
