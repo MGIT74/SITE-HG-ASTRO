@@ -52,6 +52,12 @@ import { navLinks } from '../data/site.js';
 
     <slot />
 
+    <!-- ============ BACK TO TOP ============ -->
+    <button class="back-to-top" id="back-to-top" aria-label="Retour en haut">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+      <span class="btt-progress"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="125.6" stroke-dashoffset="125.6" stroke-linecap="round" transform="rotate(-90 22 22)"/></svg></span>
+    </button>
+
     <script>
       // ============ MENU MOBILE ============
       const burger = document.getElementById('nav-burger');
@@ -132,6 +138,36 @@ import { navLinks } from '../data/site.js';
           });
           ticking = true;
         }
+      });
+      // ============ BACK TO TOP ============
+      const btt = document.getElementById('back-to-top');
+      const bttCircle = btt?.querySelector('circle');
+      const CIRC = 125.6; // 2 * PI * r(20)
+
+      let bttTicking = false;
+      window.addEventListener('scroll', () => {
+        if (!bttTicking) {
+          requestAnimationFrame(() => {
+            const scrolled = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+            // Apparait après 600px de scroll
+            btt?.classList.toggle('visible', scrolled > 600);
+
+            // Anneau de progression
+            if (bttCircle && docHeight > 0) {
+              const progress = Math.min(scrolled / docHeight, 1);
+              bttCircle.style.strokeDashoffset = String(CIRC * (1 - progress));
+            }
+
+            bttTicking = false;
+          });
+          bttTicking = true;
+        }
+      });
+
+      btt?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     </script>
   </body>
