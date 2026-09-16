@@ -53,7 +53,7 @@ export const plans = [
   {
     name: 'Site Vitrine',
     sub: 'Présence en ligne',
-    amount: '1 900€',
+    amount: '2 900€',
     period: '/projet TTC',
     desc: 'Site vitrine optimisé SEO & GEO, prêt pour l\'acquisition client — avec 1 mois de marketing offert.',
     cta: 'Lancer mon site',
