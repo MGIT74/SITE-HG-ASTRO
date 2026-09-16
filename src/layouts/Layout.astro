@@ -121,22 +121,6 @@ import { navLinks } from '../data/site.js';
       }
 
 
-      const mStats = document.querySelectorAll<HTMLElement>('.m-stat');
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            const scrolled = window.pageYOffset;
-            mStats.forEach((stat, index) => {
-              const speed = 0.03 + index * 0.015;
-              stat.style.transform = 'translateY(' + scrolled * speed + 'px)';
-            });
-            ticking = false;
-          });
-          ticking = true;
-        }
-      });
-
       const btt = document.getElementById('back-to-top');
       const bttCircle = btt?.querySelector('circle');
       const CIRC = 125.6;

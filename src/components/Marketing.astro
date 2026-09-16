@@ -213,10 +213,9 @@ const icons = [
       0 0 100px rgba(10, 132, 255, 0.35),
       0 0 200px rgba(0, 113, 227, 0.2),
       inset 0 0 60px rgba(255, 255, 255, 0.12);
-    animation:
-      orb-float 10s ease-in-out infinite,
-      orb-gradient 14s linear infinite,
-      orb-morph 9s ease-in-out infinite;
+    animation: orb-float 10s ease-in-out infinite;
+    will-change: transform;
+    transform: translateZ(0);
     position: relative;
     z-index: 1;
   }

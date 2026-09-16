@@ -116,6 +116,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
+  transform: translateZ(0);
 }
 
 .logo {
