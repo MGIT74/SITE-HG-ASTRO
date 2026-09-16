@@ -22,7 +22,7 @@ import { heroStats } from '../data/site.js';
   <div class="hero-stats-bar" data-reveal="fade" style="--reveal-delay:400ms">
     {heroStats.map((stat) => (
       <div class="stat-bar-item">
-        <span class="stat-bar-value">{stat.value}</span>
+        <span class="stat-bar-value" data-countup={stat.value}>{stat.value}</span>
         <span class="stat-bar-label">{stat.label}</span>
       </div>
     ))}
@@ -462,4 +462,57 @@ import { heroStats } from '../data/site.js';
       card.style.setProperty('--mouse-y', e.clientY - rect.top + 'px');
     });
   });
+
+  // ============ COUNT-UP ANIMATION SUR LES STATS ============
+  function parseStat(value) {
+    // Extrait préfixe, nombre, suffixe : "+40%" → { prefix: '+', num: 40, suffix: '%' }
+    const match = value.match(/^([^\d]*)([\d.]+)(.*)$/);
+    if (!match) return null;
+    return { prefix: match[1], num: parseFloat(match[2]), decimals: (match[2].split('.')[1] || '').length, suffix: match[3] };
+  }
+
+  function easeOutQuart(t) {
+    return 1 - Math.pow(1 - t, 4);
+  }
+
+  function animateCount(el, target, duration) {
+    const parsed = parseStat(target);
+    if (!parsed) return;
+
+    const start = performance.now();
+
+    function frame(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeOutQuart(progress);
+      const current = parsed.num * eased;
+
+      // Formate avec le même nombre de décimales
+      const formatted = parsed.decimals > 0
+        ? current.toFixed(parsed.decimals)
+        : Math.round(current).toString();
+
+      el.textContent = parsed.prefix + formatted + parsed.suffix;
+
+      if (progress < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  const statValues = document.querySelectorAll('[data-countup]');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReduced && 'IntersectionObserver' in window) {
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          animateCount(el, el.getAttribute('data-countup'), 1200);
+          statsObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    statValues.forEach((el) => statsObserver.observe(el));
+  }
 </script>
