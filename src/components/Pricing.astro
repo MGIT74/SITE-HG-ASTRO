@@ -3,13 +3,13 @@ import { plans } from '../data/site.js';
 ---
 
 <section class="pricing" id="pricing">
-  <div class="section-header" data-reveal="fade">
+  <div class="section-header">
     <span class="eyebrow">Tarifs</span>
     <h2>Nos Formules d'Accompagnement</h2>
     <p>Des solutions adaptées à la taille et aux besoins de votre entreprise. Prix TTC.</p>
   </div>
 
-  <div class="pricing-selector" data-reveal="fade">
+  <div class="pricing-selector">
     <div class="pricing-tabs">
       {plans.map((plan, index) => (
         <button class={`pricing-tab${index === 0 ? ' active' : ''}`} data-plan={index}>
@@ -150,7 +150,6 @@ import { plans } from '../data/site.js';
     padding: 1.75rem;
     position: sticky;
     top: 6rem;
-    animation: panel-in 0.45s var(--ease-spring);
   }
 
   @media (max-width: 900px) {
