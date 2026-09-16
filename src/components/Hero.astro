@@ -504,9 +504,25 @@ import { heroStats } from '../data/site.js';
   // ============ WORD ROTATOR (Entreprise / SaaS / MVP / Site) ============
   const rotatingWords = ['Entreprise', 'SaaS', 'MVP', 'Site'];
   const wordEl = document.getElementById('rotating-word');
+  const rotatorBox = wordEl?.closest('.word-rotator');
   let wordIndex = 0;
 
   if (wordEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Fige la largeur du conteneur sur le mot le plus long
+    // pour éviter tout saut de layout pendant la rotation
+    const probe = document.createElement('span');
+    probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;';
+    rotatorBox?.appendChild(probe);
+    let maxWidth = 0;
+    rotatingWords.forEach((w) => {
+      probe.textContent = w;
+      if (probe.offsetWidth > maxWidth) maxWidth = probe.offsetWidth;
+    });
+    probe.remove();
+    if (rotatorBox && maxWidth > 0) {
+      rotatorBox.style.minWidth = maxWidth + 'px';
+    }
+
     setInterval(() => {
       wordEl.classList.add('slide-out');
 
