@@ -238,6 +238,14 @@ nav {
     display: none;
   }
 
+  /* Header glassmorphism en mobile */
+  nav {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  }
+
   /* ============ BURGER ============ */
   .nav-burger {
     display: flex;
