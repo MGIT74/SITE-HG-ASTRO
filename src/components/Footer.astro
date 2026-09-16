@@ -28,8 +28,91 @@ import { footerCols } from '../data/site.js';
   </div>
   <div class="footer-bottom">
     <p>&copy; 2026 Hands Graphic - Tous droits réservés</p>
+    <button class="legal-link" id="legal-open">Mentions légales</button>
   </div>
 </footer>
+
+<!-- ============ MODAL MENTIONS LÉGALES ============ -->
+<div class="legal-overlay" id="legal-overlay" aria-hidden="true">
+  <div class="legal-modal" role="dialog" aria-modal="true" aria-labelledby="legal-title">
+    <button class="legal-close" id="legal-close" aria-label="Fermer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+
+    <h3 id="legal-title">Mentions Légales</h3>
+
+    <div class="legal-content">
+      <h4>Éditeur du site</h4>
+      <p>
+        <strong>Hands Graphic</strong><br />
+        Expert IA et Consultant Marketing Digital<br />
+        <span id="legal-siret">SIRET : à compléter</span><br />
+        <span id="legal-address">Adresse : à compléter</span>
+      </p>
+
+      <h4>Directeur de la publication</h4>
+      <p>Malala — Hands Graphic</p>
+
+      <h4>Hébergement</h4>
+      <p>
+        Le site est hébergé sur une infrastructure cloud sécurisée.<br />
+        Détails de l'hébergeur : à compléter.
+      </p>
+
+      <h4>Propriété intellectuelle</h4>
+      <p>
+        L'ensemble des contenus présents sur ce site (textes, visuels, logos, structure) est la propriété exclusive de Hands Graphic. Toute reproduction, même partielle, est interdite sans autorisation écrite préalable.
+      </p>
+
+      <h4>Données personnelles (RGPD)</h4>
+      <p>
+        Les informations collectées via les formulaires de ce site sont destinées uniquement à Hands Graphic dans le cadre du traitement de votre demande. Elles ne sont jamais cédées à des tiers.
+        Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données en nous contactant.
+      </p>
+
+      <h4>Cookies</h4>
+      <p>
+        Ce site peut utiliser des cookies à des fins de mesure d'audience et d'optimisation des campagnes publicitaires. Vous pouvez configurer votre navigateur pour les refuser.
+      </p>
+
+      <h4>Responsabilité</h4>
+      <p>
+        Hands Graphic s'efforce d'assurer l'exactitude des informations diffusées sur ce site, sans pouvoir garantir l'absence d'erreurs ou d'omissions. Les résultats mentionnés sont donnés à titre indicatif et ne constituent pas une garantie contractuelle.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const openBtn = document.getElementById('legal-open');
+  const overlay = document.getElementById('legal-overlay');
+  const closeBtn = document.getElementById('legal-close');
+
+  function openModal() {
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  openBtn?.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', closeModal);
+
+  // Fermer au clic sur le fond
+  overlay?.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal();
+  });
+
+  // Fermer avec Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
 
 <style>
   footer {
@@ -110,5 +193,130 @@ import { footerCols } from '../data/site.js';
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     color: #86868b;
     font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .legal-link {
+    background: none;
+    border: none;
+    color: #86868b;
+    font-family: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    transition: all 0.25s ease;
+  }
+
+  .legal-link:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* ============ MODAL MENTIONS LÉGALES ============ */
+  .legal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+  }
+
+  .legal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .legal-modal {
+    background: white;
+    color: var(--ink);
+    border-radius: 24px;
+    max-width: 640px;
+    width: 100%;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 2.25rem;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.3);
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .legal-overlay.open .legal-modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .legal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: var(--surface, #f5f5f7);
+    color: #6e6e73;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .legal-close:hover {
+    background: #1d1d1f;
+    color: white;
+    transform: rotate(90deg);
+  }
+
+  .legal-modal h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 1.25rem;
+  }
+
+  .legal-content {
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+
+  .legal-content h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .legal-content h4:first-child {
+    margin-top: 0;
+  }
+
+  .legal-content p {
+    font-size: 0.88rem;
+    color: #6e6e73;
+    line-height: 1.65;
+  }
+
+  .legal-content strong {
+    color: #1d1d1f;
+  }
+
+  @media (max-width: 768px) {
+    .legal-modal {
+      padding: 1.75rem 1.5rem;
+      border-radius: 20px;
+    }
   }
 </style>
