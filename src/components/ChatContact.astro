@@ -515,6 +515,11 @@ const services = [
 
   // ============ MODE DEVIS (formulaire avec message) ============
   document.getElementById('chat-mode-form-btn')?.addEventListener('click', () => {
+    // Validation des coordonnées AVANT d'accéder au message
+    const collected = collectLead();
+    if (!collected) return;
+
+    lead = collected;
     leadForm.hidden = true;
     document.getElementById('chat-mode-form-btn').closest('.chat-mode-choice').style.display = 'none';
     document.querySelector('.chat-step-form h3').textContent = 'Votre demande de devis';
@@ -539,13 +544,8 @@ const services = [
     errorEl2.hidden = true;
 
     const collected = collectLead();
-    if (!collected) {
-      quoteForm.hidden = true;
-      leadForm.hidden = false;
-      document.querySelector('.chat-mode-choice').style.display = 'flex';
-      quoteForm.hidden = true;
-      return;
-    }
+    if (!collected) return;
+
     lead = { ...collected, message };
 
     if (WEBHOOK_URL) {
