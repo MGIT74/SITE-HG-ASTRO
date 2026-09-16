@@ -51,6 +51,22 @@ export const marketingStats = [
 
 export const plans = [
   {
+    name: 'Site Vitrine',
+    sub: 'Présence en ligne',
+    amount: '1 900€',
+    period: '/projet TTC',
+    desc: 'Site vitrine optimisé SEO & GEO, prêt pour l\'acquisition client — avec 1 mois de marketing offert.',
+    cta: 'Lancer mon site',
+    features: [
+      'Site vitrine optimisé SEO',
+      'Optimisation GEO (cité par les IA)',
+      'Pages de conversion orientées client',
+      'Pack marketing 1 mois OFFERT',
+      'Publicité 1 mois incluse',
+      'Mise en ligne + formation',
+    ],
+  },
+  {
     name: 'Marketing Mensuel',
     sub: 'Marketing Digital',
     amount: '1 000€',
@@ -65,6 +81,7 @@ export const plans = [
       'SEO & optimisation Google',
       'Reporting mensuel détaillé',
       'Optimisation continue IA',
+      'Hors budget publicitaire',
     ],
   },
   {
