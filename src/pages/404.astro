@@ -5,12 +5,6 @@ import Layout from '../layouts/Layout.astro';
 <Layout>
   <section class="nf-section">
     <div class="nf-card" data-reveal="fade">
-      <div class="nf-orb" aria-hidden="true">
-        <div class="nf-orb-core"></div>
-        <div class="nf-orb-ring r1"></div>
-        <div class="nf-orb-ring r2"></div>
-      </div>
-
       <p class="nf-code">404</p>
       <h1 class="nf-title">Cette page s'est égarée</h1>
       <p class="nf-text">
@@ -62,54 +56,12 @@ import Layout from '../layouts/Layout.astro';
     overflow: hidden;
   }
 
-  .nf-orb {
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 260px;
-    height: 180px;
-    pointer-events: none;
-  }
-
-  .nf-orb-core {
-    position: absolute;
-    inset: 45px 75px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(10, 132, 255, 0.35) 0%, rgba(0, 81, 213, 0.18) 45%, transparent 72%);
-    filter: blur(14px);
-    animation: nf-float 4s ease-in-out infinite;
-  }
-
-  .nf-orb-ring {
-    position: absolute;
-    inset: 35px 55px;
-    border-radius: 50%;
-    border: 1px solid rgba(10, 132, 255, 0.3);
-    animation: nf-pulse 2.5s ease-out infinite;
-  }
-
-  .nf-orb-ring.r2 {
-    inset: 20px 30px;
-    animation-delay: 1.25s;
-  }
-
-  @keyframes nf-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-  }
-
-  @keyframes nf-pulse {
-    0% { transform: scale(0.85); opacity: 0.7; }
-    100% { transform: scale(1.45); opacity: 0; }
-  }
-
   .nf-code {
     font-size: clamp(4.5rem, 12vw, 7rem);
     font-weight: 800;
     line-height: 1;
     letter-spacing: -4px;
-    margin: 2.25rem 0 0.75rem;
+    margin: 0 0 0.75rem;
     background: linear-gradient(135deg, #0a84ff, #0071e3);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -210,13 +162,6 @@ import Layout from '../layouts/Layout.astro';
     .nf-btn-primary,
     .nf-btn-ghost {
       text-align: center;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .nf-orb-core,
-    .nf-orb-ring {
-      animation: none;
     }
   }
 </style>
