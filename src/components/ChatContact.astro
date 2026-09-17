@@ -7,6 +7,7 @@ const services = [
   { id: 'app', label: 'Application Métier' },
   { id: 'autre', label: 'Autre besoin' },
 ];
+const webhookUrl = import.meta.env.PUBLIC_N8N_WEBHOOK_URL || '';
 ---
 
 <!-- ============ BOUTON CHAT FLOTTANT ============ -->
@@ -177,8 +178,8 @@ const services = [
   </div>
 </div>
 
-<script define:vars={{ }}>
-  const WEBHOOK_URL = ''; // URL du webhook n8n à renseigner
+<script define:vars={{ webhookUrl }}>
+  const WEBHOOK_URL = webhookUrl;
 
   const fab = document.getElementById('chat-fab');
   const overlay = document.getElementById('chat-overlay');

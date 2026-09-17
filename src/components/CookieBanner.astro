@@ -50,6 +50,7 @@
       <button class="cookie-btn cookie-btn-ghost" id="cookie-custom">Personnaliser</button>
       <button class="cookie-btn cookie-btn-primary" id="cookie-accept">Tout accepter</button>
     </div>
+    <button class="cookie-btn cookie-btn-primary cookie-save" id="cookie-save" hidden>Valider mes choix</button>
   </div>
 </div>
 
@@ -60,6 +61,8 @@
   const acceptBtn = document.getElementById('cookie-accept');
   const refuseBtn = document.getElementById('cookie-refuse');
   const customBtn = document.getElementById('cookie-custom');
+  const saveBtn = document.getElementById('cookie-save');
+  const acceptActions = document.querySelector('.cookie-actions');
   let customOpen = false;
 
   function saveChoice(analytics, ads) {
@@ -97,16 +100,27 @@
     customOpen = !customOpen;
     details.classList.toggle('open', customOpen);
     customBtn.textContent = customOpen ? 'Réduire' : 'Personnaliser';
+    saveBtn.hidden = !customOpen;
+    if (customOpen) {
+      acceptActions.style.display = 'none';
+    } else {
+      acceptActions.style.display = 'flex';
+    }
   });
 
   toggleDetails?.addEventListener('click', () => {
     customOpen = !customOpen;
     details.classList.toggle('open', customOpen);
     customBtn.textContent = customOpen ? 'Réduire' : 'Personnaliser';
+    saveBtn.hidden = !customOpen;
+    if (customOpen) {
+      acceptActions.style.display = 'none';
+    } else {
+      acceptActions.style.display = 'flex';
+    }
   });
 
-
-  customBtn?.addEventListener('dblclick', () => {
+  saveBtn?.addEventListener('click', () => {
     saveChoice(
       document.getElementById('cookie-analytics').checked,
       document.getElementById('cookie-ads').checked
@@ -324,6 +338,15 @@
     color: #1d1d1f;
     border-color: rgba(0, 0, 0, 0.25);
     transform: translateY(-2px);
+  }
+
+  .cookie-save {
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+
+  .cookie-save[hidden] {
+    display: none;
   }
 
   @media (max-width: 768px) {

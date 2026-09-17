@@ -1,6 +1,31 @@
 ---
 import '../styles/global.css';
 import { navLinks } from '../data/site.js';
+
+const SITE_URL = 'https://hands-graphic.fr';
+const TITLE = "Hands Graphic - Agence d'Automatisation IA & Marketing Digital";
+const DESCRIPTION =
+  "Agence spécialisée en automatisation IA et marketing digital. Agents IA personnalisés, workflows automatisés, applications métier et campagnes marketing pour faire croître votre entreprise 24/7.";
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Hands Graphic',
+  description: DESCRIPTION,
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.svg`,
+  image: `${SITE_URL}/logo.svg`,
+  priceRange: '€€',
+  areaServed: 'FR',
+  knowsLanguage: ['fr', 'en'],
+  sameAs: [],
+  makesOffer: [
+    { '@type': 'Offer', name: 'Agents IA Personnalisés' },
+    { '@type': 'Offer', name: 'Automatisation de Workflows' },
+    { '@type': 'Offer', name: 'Applications Métier IA' },
+    { '@type': 'Offer', name: 'Marketing Digital Automatisé' },
+  ],
+};
 ---
 
 <!DOCTYPE html>
@@ -8,7 +33,30 @@ import { navLinks } from '../data/site.js';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hands Graphic - Agence d'Automatisation IA</title>
+    <title>{TITLE}</title>
+    <meta name="description" content={DESCRIPTION} />
+    <link rel="canonical" href={SITE_URL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Hands Graphic" />
+    <meta property="og:title" content={TITLE} />
+    <meta property="og:description" content={DESCRIPTION} />
+    <meta property="og:url" content={SITE_URL} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:image" content={`${SITE_URL}/og-image.png`} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={TITLE} />
+    <meta name="twitter:description" content={DESCRIPTION} />
+    <meta name="twitter:image" content={`${SITE_URL}/og-image.png`} />
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
