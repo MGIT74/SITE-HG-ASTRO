@@ -73,7 +73,7 @@ const jsonLd = {
       </div>
       <ul class="nav-links">
         {navLinks.map((link) => (
-          <li><a href={link.href}>{link.label}</a></li>
+          <li><a href={link.href} class="nav-link" data-text={link.label}><span>{link.label}</span></a></li>
         ))}
       </ul>
       <a href="#contact" class="btn-nav" data-chat="demo">Réserver une démo →</a>
