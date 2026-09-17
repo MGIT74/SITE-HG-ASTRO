@@ -122,11 +122,29 @@ const bars = [
     padding: 2rem;
     border-radius: 22px;
     border: 1px solid transparent;
-    transition: all 0.4s var(--ease-spring);
+    transition:
+      background 0.4s var(--ease-spring),
+      box-shadow 0.4s var(--ease-spring),
+      border-color 0.4s var(--ease-spring);
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
+  }
+
+  .service-card[data-reveal] {
+    transition:
+      opacity 0.8s var(--ease-smooth) var(--reveal-delay, 0ms),
+      transform 0.8s var(--ease-smooth) var(--reveal-delay, 0ms);
+  }
+
+  .service-card[data-reveal].reveal-visible {
+    transition:
+      opacity 0.8s var(--ease-smooth),
+      transform 0.8s var(--ease-smooth),
+      background 0.4s var(--ease-spring),
+      box-shadow 0.4s var(--ease-spring),
+      border-color 0.4s var(--ease-spring);
   }
 
   .service-card::before {

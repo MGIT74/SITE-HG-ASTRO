@@ -155,12 +155,21 @@ const jsonLd = {
 
         const observer = new IntersectionObserver(
           (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('reveal-visible');
+            entries
+              .filter((entry) => entry.isIntersecting)
+              .sort((a, b) => {
+                const da = parseFloat(getComputedStyle(a.target).transitionDelay) || 0;
+                const db = parseFloat(getComputedStyle(b.target).transitionDelay) || 0;
+                return da - db;
+              })
+              .forEach((entry, i) => {
+                const delay = parseFloat(getComputedStyle(entry.target).transitionDelay) || 0;
+                setTimeout(() => {
+                  entry.target.classList.add('reveal-visible');
+                  entry.target.style.setProperty('--reveal-delay', '0ms');
+                }, i * 90);
                 observer.unobserve(entry.target);
-              }
-            });
+              });
           },
           { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
         );
