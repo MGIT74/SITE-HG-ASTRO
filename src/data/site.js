@@ -51,6 +51,22 @@ export const marketingStats = [
 
 export const plans = [
   {
+    name: 'Landing Page',
+    sub: 'Page de conversion',
+    amount: '1 900€',
+    period: '/projet TTC',
+    desc: "Page unique ultra-optimisée pour transformer vos visiteurs en clients — idéale pour vos campagnes.",
+    cta: 'Lancer ma landing page',
+    features: [
+      'Page unique orientée conversion',
+      'Design sur-mesure responsive',
+      'Optimisation SEO & GEO',
+      'Intégration formulaires / prise de RDV',
+      'Connexion à vos outils (CRM, emails)',
+      'Mise en ligne + formation',
+    ],
+  },
+  {
     name: 'Site Vitrine',
     sub: 'Présence en ligne',
     amount: '2 900€',
