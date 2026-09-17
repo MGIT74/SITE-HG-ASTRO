@@ -1,0 +1,222 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <section class="nf-section">
+    <div class="nf-card" data-reveal="fade">
+      <div class="nf-orb" aria-hidden="true">
+        <div class="nf-orb-core"></div>
+        <div class="nf-orb-ring r1"></div>
+        <div class="nf-orb-ring r2"></div>
+      </div>
+
+      <p class="nf-code">404</p>
+      <h1 class="nf-title">Cette page s'est égarée</h1>
+      <p class="nf-text">
+        Le contenu que vous cherchez n'existe pas ou a été déplacé.
+        Pas d'inquiétude — nos agents, eux, sont toujours en ligne.
+      </p>
+
+      <div class="nf-actions">
+        <a href="/" class="nf-btn-primary" data-chat="generic">Retour à l'accueil →</a>
+        <a href="/#services" class="nf-btn-ghost">Voir nos services</a>
+      </div>
+
+      <div class="nf-links">
+        <a href="/#pricing">Tarifs</a>
+        <span>·</span>
+        <a href="/#marketing">Marketing</a>
+        <span>·</span>
+        <a href="/#contact">Contact</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .nf-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 5% 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nf-card {
+    max-width: 640px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.03),
+      0 20px 60px rgba(0, 0, 0, 0.06);
+    padding: 4rem 3rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nf-orb {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    height: 180px;
+    pointer-events: none;
+  }
+
+  .nf-orb-core {
+    position: absolute;
+    inset: 45px 75px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(10, 132, 255, 0.35) 0%, rgba(0, 81, 213, 0.18) 45%, transparent 72%);
+    filter: blur(14px);
+    animation: nf-float 4s ease-in-out infinite;
+  }
+
+  .nf-orb-ring {
+    position: absolute;
+    inset: 35px 55px;
+    border-radius: 50%;
+    border: 1px solid rgba(10, 132, 255, 0.3);
+    animation: nf-pulse 2.5s ease-out infinite;
+  }
+
+  .nf-orb-ring.r2 {
+    inset: 20px 30px;
+    animation-delay: 1.25s;
+  }
+
+  @keyframes nf-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes nf-pulse {
+    0% { transform: scale(0.85); opacity: 0.7; }
+    100% { transform: scale(1.45); opacity: 0; }
+  }
+
+  .nf-code {
+    font-size: clamp(4.5rem, 12vw, 7rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -4px;
+    margin: 2.25rem 0 0.75rem;
+    background: linear-gradient(135deg, #0a84ff, #0071e3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nf-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.9rem;
+    color: var(--ink);
+  }
+
+  .nf-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--ink-secondary);
+    max-width: 440px;
+    margin: 0 auto 2.25rem;
+  }
+
+  .nf-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .nf-btn-primary {
+    background: var(--ink);
+    color: white;
+    padding: 0.9rem 1.9rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s var(--ease-spring);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  }
+
+  .nf-btn-primary:hover {
+    background: #000;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+  }
+
+  .nf-btn-ghost {
+    padding: 0.9rem 1.9rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink-secondary);
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s var(--ease-spring);
+  }
+
+  .nf-btn-ghost:hover {
+    color: var(--ink);
+    border-color: rgba(0, 113, 227, 0.4);
+    transform: translateY(-3px);
+  }
+
+  .nf-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.88rem;
+    color: var(--ink-tertiary);
+  }
+
+  .nf-links a {
+    color: var(--ink-secondary);
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+
+  .nf-links a:hover {
+    color: var(--blue);
+  }
+
+  @media (max-width: 768px) {
+    .nf-card {
+      padding: 3.5rem 1.5rem 2.5rem;
+    }
+
+    .nf-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .nf-btn-primary,
+    .nf-btn-ghost {
+      text-align: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nf-orb-core,
+    .nf-orb-ring {
+      animation: none;
+    }
+  }
+</style>
