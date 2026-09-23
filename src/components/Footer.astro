@@ -41,12 +41,34 @@ import { footerCols } from '../data/site.js';
     >
       <defs>
         <linearGradient id="giant-fade" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.26"></stop>
-          <stop offset="42%" stop-color="#ffffff" stop-opacity="0.1"></stop>
-          <stop offset="72%" stop-color="#ffffff" stop-opacity="0.04"></stop>
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.28"></stop>
+          <stop offset="42%" stop-color="#ffffff" stop-opacity="0.12"></stop>
+          <stop offset="72%" stop-color="#ffffff" stop-opacity="0.05"></stop>
           <stop offset="100%" stop-color="#ffffff" stop-opacity="0"></stop>
         </linearGradient>
+
+        <filter id="giant-blur" x="-5%" y="-30%" width="110%" height="160%">
+          <feGaussianBlur stdDeviation="6"></feGaussianBlur>
+        </filter>
+
+        <linearGradient id="giant-mask-sharp" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#fff"></stop>
+          <stop offset="52%" stop-color="#fff"></stop>
+          <stop offset="96%" stop-color="#000"></stop>
+        </linearGradient>
+        <linearGradient id="giant-mask-blur" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#000"></stop>
+          <stop offset="52%" stop-color="#000"></stop>
+          <stop offset="96%" stop-color="#fff"></stop>
+        </linearGradient>
+        <mask id="giant-sharp-mask">
+          <rect x="0" y="0" width="1200" height="142" fill="url(#giant-mask-sharp)"></rect>
+        </mask>
+        <mask id="giant-blur-mask">
+          <rect x="0" y="0" width="1200" height="142" fill="url(#giant-mask-blur)"></rect>
+        </mask>
       </defs>
+
       <text
         x="600"
         y="126"
@@ -57,6 +79,21 @@ import { footerCols } from '../data/site.js';
         font-weight="800"
         letter-spacing="-3"
         fill="url(#giant-fade)"
+        mask="url(#giant-sharp-mask)"
+        font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+      >HANDS GRAPHIC</text>
+      <text
+        x="600"
+        y="126"
+        text-anchor="middle"
+        textLength="1176"
+        lengthAdjust="spacingAndGlyphs"
+        font-size="128"
+        font-weight="800"
+        letter-spacing="-3"
+        fill="url(#giant-fade)"
+        filter="url(#giant-blur)"
+        mask="url(#giant-blur-mask)"
         font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
       >HANDS GRAPHIC</text>
     </svg>
@@ -245,21 +282,7 @@ import { footerCols } from '../data/site.js';
     display: block;
     width: 100%;
     height: auto;
-    filter: blur(2.5px);
-    opacity: 0.9;
     transform: translateY(6%);
-    transition: filter 1.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s ease;
-  }
-
-  .footer-giant:hover .footer-giant-svg {
-    filter: blur(0.5px);
-    opacity: 1;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .footer-giant-svg {
-      transition: none;
-    }
   }
 
   .legal-link {
