@@ -256,17 +256,22 @@ import { footerCols } from '../data/site.js';
   }
 
   .footer-bottom {
-    text-align: center;
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     color: #86868b;
     font-size: 0.9rem;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.75rem;
-    position: relative;
-    z-index: 2;
+    gap: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .footer-bottom {
+      flex-direction: column;
+      gap: 0.75rem;
+      text-align: center;
+    }
   }
 
   .footer-giant {
