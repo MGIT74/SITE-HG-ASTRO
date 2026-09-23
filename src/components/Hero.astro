@@ -9,7 +9,7 @@ import { heroStats } from '../data/site.js';
   </div>
 
   <h1 class="hero-title" data-reveal="fade" style="--reveal-delay:100ms">
-    <span class="title-line-1"><span>Automatisez Votre <span class="word-rotator"><span class="word-rotator-word" id="rotating-word">Entreprise</span></span></span> <span>et Multipliez</span></span><br />
+    <span class="title-line-1"><span>Automatisez Votre Entreprise</span> <span>et Multipliez</span></span><br />
     <span class="highlight">Vos Clients</span>
   </h1>
 
@@ -83,46 +83,6 @@ import { heroStats } from '../data/site.js';
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: text-shine 8s linear infinite;
-  }
-
-  .word-rotator {
-    display: inline-flex;
-    justify-content: center;
-    vertical-align: bottom;
-    white-space: nowrap;
-    transition: width 0.5s var(--ease-smooth);
-    will-change: width;
-  }
-
-  .word-rotator-word {
-    display: inline-block;
-    color: var(--ink);
-  }
-
-  .word-rotator-word.slide-out {
-    animation: word-out 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  }
-
-  .word-rotator-word.slide-in {
-    animation: word-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  }
-
-  @keyframes word-out {
-    to {
-      opacity: 0;
-      transform: translateY(-0.45em) rotateX(40deg);
-    }
-  }
-
-  @keyframes word-in {
-    from {
-      opacity: 0;
-      transform: translateY(0.45em) rotateX(-40deg);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) rotateX(0);
-    }
   }
 
   .hero-subtitle {
@@ -210,46 +170,6 @@ import { heroStats } from '../data/site.js';
 </style>
 
 <script>
-  const rotatingWords = ['Entreprise', 'SaaS', 'MVP', 'Site'];
-  const wordEl = document.getElementById('rotating-word');
-  const rotatorBox = wordEl?.closest('.word-rotator');
-  let wordIndex = 0;
-
-  if (wordEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-
-    const probe = document.createElement('span');
-    probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;';
-    wordEl.parentElement?.appendChild(probe);
-    const widths = rotatingWords.map((w) => {
-      probe.textContent = w;
-      const style = getComputedStyle(wordEl);
-      probe.style.font = style.font;
-      return probe.offsetWidth;
-    });
-    probe.remove();
-
-
-    function setWidth(wordIdx) {
-      if (rotatorBox) rotatorBox.style.width = widths[wordIdx] + 'px';
-    }
-    setWidth(0);
-
-    setInterval(() => {
-      wordEl.classList.add('slide-out');
-
-      setTimeout(() => {
-        wordIndex = (wordIndex + 1) % rotatingWords.length;
-        wordEl.textContent = rotatingWords[wordIndex];
-        setWidth(wordIndex);
-        wordEl.classList.remove('slide-out');
-        wordEl.classList.add('slide-in');
-
-        setTimeout(() => wordEl.classList.remove('slide-in'), 450);
-      }, 400);
-    }, 2800);
-  }
-
-
   function parseStat(value) {
 
     const match = value.match(/^([^\d]*)([\d.]+)(.*)$/);
