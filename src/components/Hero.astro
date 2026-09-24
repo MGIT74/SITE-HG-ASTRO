@@ -9,8 +9,8 @@ import { heroStats } from '../data/site.js';
   </div>
 
   <h1 class="hero-title" data-reveal="fade" style="--reveal-delay:100ms">
-    <span class="title-line-1"><span>Automatisez Votre Entreprise</span> <span>et Multipliez</span></span><br />
-    <span class="highlight">Vos Clients</span>
+    <span class="title-line-1"><span>Automatisez Votre Entreprise<span class="title-icon title-icon-robot" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="3"></rect><path d="M12 8V4"></path><circle cx="12" cy="3" r="1"></circle><circle cx="9" cy="14" r="1" fill="currentColor" stroke="none"></circle><circle cx="15" cy="14" r="1" fill="currentColor" stroke="none"></circle></svg></span></span> <span>et Multipliez</span></span><br />
+    <span class="highlight">Vos Clients<span class="title-icon title-icon-clients" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20c0-3.6 2.9-5.5 6.5-5.5s6.5 1.9 6.5 5.5"></path><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"></path><path d="M17.5 14.9c2.4.7 4 2.3 4 5.1"></path></svg></span></span>
   </h1>
 
   <p class="hero-subtitle" data-reveal="fade" style="--reveal-delay:200ms">
@@ -83,6 +83,36 @@ import { heroStats } from '../data/site.js';
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: text-shine 8s linear infinite;
+  }
+
+  .title-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.72em;
+    height: 0.72em;
+    border-radius: 0.22em;
+    margin-left: 0.14em;
+    vertical-align: baseline;
+    transform: translateY(0.06em);
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.04),
+      0 2px 6px rgba(0, 0, 0, 0.12);
+  }
+
+  .title-icon svg {
+    width: 62%;
+    height: 62%;
+  }
+
+  .title-icon-robot {
+    background: linear-gradient(135deg, #ff6b6b, #ee3b3b);
+    color: white;
+  }
+
+  .title-icon-clients {
+    background: linear-gradient(135deg, #34c759, #248a3d);
+    color: white;
   }
 
   .hero-subtitle {
