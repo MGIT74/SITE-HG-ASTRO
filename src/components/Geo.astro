@@ -47,9 +47,16 @@
     <div class="geo-visual" data-reveal="scale" style="--reveal-delay:150ms">
       <div class="geo-orb">
         <div class="geo-orb-core"></div>
-        <div class="geo-orb-ring r1"></div>
-        <div class="geo-orb-ring r2"></div>
-        <div class="geo-orb-ring r3"></div>
+        <div class="geo-orbit orbit-1">
+          <span class="geo-ai-logo" title="ChatGPT"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg" alt="ChatGPT" width="22" height="22" /></span>
+          <span class="geo-ai-logo" title="Claude"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg" alt="Claude" width="22" height="22" /></span>
+          <span class="geo-ai-logo" title="Google AI"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/googlegemini.svg" alt="Google AI" width="22" height="22" /></span>
+        </div>
+        <div class="geo-orbit orbit-2">
+          <span class="geo-ai-logo" title="ChatGPT"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg" alt="ChatGPT" width="18" height="18" /></span>
+          <span class="geo-ai-logo" title="Claude"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg" alt="Claude" width="18" height="18" /></span>
+          <span class="geo-ai-logo" title="Google AI"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/googlegemini.svg" alt="Google AI" width="18" height="18" /></span>
+        </div>
       </div>
 
       <div class="geo-card gc-1">
@@ -217,20 +224,67 @@
     50% { transform: translateY(-12px) scale(1.04); }
   }
 
-  .geo-orb-ring {
+  .geo-orbit {
     position: absolute;
     border-radius: 50%;
-    border: 1.5px solid rgba(10, 132, 255, 0.35);
-    animation: geo-ring 3s ease-out infinite;
+    border: 1.5px dashed rgba(10, 132, 255, 0.4);
+    animation: geo-rotate 18s linear infinite;
   }
 
-  .geo-orb-ring.r1 { inset: 20px; }
-  .geo-orb-ring.r2 { inset: 20px; animation-delay: 1s; }
-  .geo-orb-ring.r3 { inset: 20px; animation-delay: 2s; }
+  .geo-orbit.orbit-1 { inset: -10px; }
+  .geo-orbit.orbit-2 {
+    inset: -45px;
+    animation-duration: 26s;
+    animation-direction: reverse;
+    border-color: rgba(10, 132, 255, 0.25);
+  }
 
-  @keyframes geo-ring {
-    0% { transform: scale(1); opacity: 0.7; }
-    100% { transform: scale(1.8); opacity: 0; }
+  @keyframes geo-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .geo-ai-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    margin: -22px 0 0 -22px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* contre-rotation pour garder les logos droits */
+    animation: geo-counter-rotate 18s linear infinite reverse;
+  }
+
+  .orbit-2 .geo-ai-logo {
+    width: 38px;
+    height: 38px;
+    margin: -19px 0 0 -19px;
+    animation-duration: 26s;
+  }
+
+  .geo-ai-logo img {
+    width: 55%;
+    height: 55%;
+    object-fit: contain;
+  }
+
+  .orbit-1 .geo-ai-logo:nth-child(1) { transform: rotate(0deg) translateX(calc(var(--orbit-r, 110px))) rotate(0deg); }
+  .orbit-1 .geo-ai-logo:nth-child(2) { transform: rotate(120deg) translateX(calc(var(--orbit-r, 110px))) rotate(-120deg); }
+  .orbit-1 .geo-ai-logo:nth-child(3) { transform: rotate(240deg) translateX(calc(var(--orbit-r, 110px))) rotate(-240deg); }
+  .orbit-2 .geo-ai-logo:nth-child(1) { transform: rotate(60deg) translateX(calc(var(--orbit-r2, 145px))) rotate(-60deg); }
+  .orbit-2 .geo-ai-logo:nth-child(2) { transform: rotate(180deg) translateX(calc(var(--orbit-r2, 145px))) rotate(-180deg); }
+  .orbit-2 .geo-ai-logo:nth-child(3) { transform: rotate(300deg) translateX(calc(var(--orbit-r2, 145px))) rotate(-300deg); }
+
+  @keyframes geo-counter-rotate {
+    from { rotate: 0deg; }
+    to { rotate: -360deg; }
   }
 
   .geo-card {
@@ -281,6 +335,13 @@
     .geo-visual {
       order: -1;
       min-height: 320px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .geo-orbit,
+    .geo-ai-logo {
+      animation: none !important;
     }
   }
 
