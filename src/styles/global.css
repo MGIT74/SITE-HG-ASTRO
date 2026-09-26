@@ -1,7 +1,7 @@
 :root {
-  --blue: #0071e3;
-  --blue-light: #0a84ff;
-  --blue-dark: #0058b9;
+  --blue: #1d1d1f;
+  --blue-light: #3a3a3c;
+  --blue-dark: #000000;
   --green: #30d158;
   --ink: #1d1d1f;
   --ink-secondary: #6e6e73;
@@ -213,7 +213,7 @@ nav {
 
 .section-header .eyebrow {
   display: inline-block;
-  background: rgba(0, 113, 227, 0.08);
+  background: rgba(0, 0, 0, 0.08);
   color: var(--blue);
   padding: 0.4rem 1rem;
   border-radius: 50px;
