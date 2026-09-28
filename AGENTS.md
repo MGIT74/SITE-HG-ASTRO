@@ -11,6 +11,8 @@ Site vitrine Astro 4 pour Hands Graphic (agence automatisation IA + marketing di
 ## Workflow Git
 
 - Après CHAQUE mise à jour : build de vérification, puis commit ET push directement sur `main` (ne pas attendre une demande explicite).
+- Après CHAQUE push réussi : déclencher le déploiement xCloud avec :
+  `curl -s -X POST "https://app.xcloud.host/api/git/ZX6jvyNbxMqlmnJev7115PzD97O1g2Q8rEVA/deploy"`
 - Messages de commit courts, en français, sans accents.
 
 ## Points d'attention
