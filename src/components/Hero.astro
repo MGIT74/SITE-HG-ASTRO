@@ -195,6 +195,11 @@ import { heroStats } from '../data/site.js';
       gap: 0.05em;
     }
 
+    /* title-line-1 passe en bloc (flex) : le <br /> creerait une ligne vide */
+    .hero-title br {
+      display: none;
+    }
+
     .hero-title { margin-bottom: 0.75rem; }
   }
 </style>
