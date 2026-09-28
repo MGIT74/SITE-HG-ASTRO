@@ -50,12 +50,10 @@
         <div class="geo-orbit orbit-1">
           <span class="geo-ai-logo" title="Google Gemini"><img src="/ai/gemini-spark.svg" alt="Google Gemini" /></span>
           <span class="geo-ai-logo" title="Perplexity"><img src="https://cdn.simpleicons.org/perplexity/20808D" alt="Perplexity" /></span>
-          <span class="geo-ai-logo" title="Google Gemini"><img src="/ai/gemini-spark.svg" alt="Google Gemini" /></span>
         </div>
         <div class="geo-orbit orbit-2">
-          <span class="geo-ai-logo" title="ChatGPT"><img src="https://cdn.simpleicons.org/claude/d97757" alt="ChatGPT" /></span>
-          <span class="geo-ai-logo" title="Claude"><img src="https://cdn.simpleicons.org/claude/d97757" alt="Claude" /></span>
           <span class="geo-ai-logo" title="ChatGPT"><img src="https://cdn.jsdelivr.net/npm/simple-icons@11.15.0/icons/openai.svg" alt="ChatGPT" /></span>
+          <span class="geo-ai-logo" title="Claude"><img src="https://cdn.simpleicons.org/claude/d97757" alt="Claude" /></span>
         </div>
       </div>
 
@@ -275,6 +273,11 @@
     height: 55%;
     object-fit: contain;
   }
+
+  .orbit-1 .geo-ai-logo:nth-child(1) { transform: rotate(0deg) translateX(110px) rotate(0deg); }
+  .orbit-1 .geo-ai-logo:nth-child(2) { transform: rotate(180deg) translateX(110px) rotate(-180deg); }
+  .orbit-2 .geo-ai-logo:nth-child(1) { transform: rotate(0deg) translateX(145px) rotate(0deg); }
+  .orbit-2 .geo-ai-logo:nth-child(2) { transform: rotate(180deg) translateX(145px) rotate(-180deg); }
 
   @keyframes geo-counter-rotate {
     from { rotate: 0deg; }
