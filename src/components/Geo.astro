@@ -256,16 +256,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* contre-rotation (en degres, sur la propriete rotate) pour garder les logos droits pendant la revolution */
-    animation: geo-counter-rotate 18s linear infinite;
   }
 
   .orbit-2 .geo-ai-logo {
     width: 38px;
     height: 38px;
     margin: -19px 0 0 -19px;
-    animation-name: geo-counter-rotate-2;
-    animation-duration: 30s;
   }
 
   .geo-ai-logo img {
@@ -274,23 +270,11 @@
     object-fit: contain;
   }
 
-  /* placement des logos sur l'orbite (transform statique, la revolution vient du parent) */
+  /* placement des logos sur l'orbite : ils suivent la rotation de leur cercle */
   .orbit-1 .geo-ai-logo:nth-child(1) { transform: rotate(0deg) translateX(110px) rotate(0deg); }
   .orbit-1 .geo-ai-logo:nth-child(2) { transform: rotate(180deg) translateX(110px) rotate(-180deg); }
   .orbit-2 .geo-ai-logo:nth-child(1) { transform: rotate(0deg) translateX(150px) rotate(0deg); }
   .orbit-2 .geo-ai-logo:nth-child(2) { transform: rotate(180deg) translateX(150px) rotate(-180deg); }
-
-  @keyframes geo-counter-rotate {
-    /* l'orbite 1 tourne de 0 a 360 : les logos tournent en negatif pour rester droits */
-    from { rotate: 0deg; }
-    to { rotate: -360deg; }
-  }
-
-  @keyframes geo-counter-rotate-2 {
-    /* l'orbite 2 tourne en reverse (360 a 0) : les logos tournent en positif pour rester droits */
-    from { rotate: 0deg; }
-    to { rotate: 360deg; }
-  }
 
   .geo-card {
     position: absolute;
