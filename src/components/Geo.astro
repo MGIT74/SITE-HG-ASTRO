@@ -60,15 +60,15 @@
       </div>
 
       <div class="geo-card gc-1">
-        <span class="geo-ai-dot" style="background:#10a37f;"></span>
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg" alt="" width="15" height="15" />
         ChatGPT <em>cite votre marque</em>
       </div>
       <div class="geo-card gc-2">
-        <span class="geo-ai-dot" style="background:#d97757;"></span>
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg" alt="" width="15" height="15" />
         Claude <em>recommande vos services</em>
       </div>
       <div class="geo-card gc-3">
-        <span class="geo-ai-dot" style="background:#4285f4;"></span>
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/googlegemini.svg" alt="" width="15" height="15" />
         Google AI <em>vous affiche en premier</em>
       </div>
     </div>
@@ -234,7 +234,7 @@
   .geo-orbit.orbit-1 { inset: -10px; }
   .geo-orbit.orbit-2 {
     inset: -45px;
-    animation-duration: 26s;
+    animation-duration: 30s;
     animation-direction: reverse;
     border-color: rgba(10, 132, 255, 0.25);
   }
@@ -259,14 +259,15 @@
     align-items: center;
     justify-content: center;
     /* contre-rotation pour garder les logos droits */
-    animation: geo-counter-rotate 18s linear infinite reverse;
+    animation: geo-counter-rotate 18s linear infinite;
   }
 
   .orbit-2 .geo-ai-logo {
     width: 38px;
     height: 38px;
     margin: -19px 0 0 -19px;
-    animation-duration: 26s;
+    animation-duration: 30s;
+    animation-direction: reverse;
   }
 
   .geo-ai-logo img {
@@ -287,44 +288,58 @@
     to { rotate: -360deg; }
   }
 
+  /* orbit-2 tourne en reverse : la contre-rotation doit etre positive */
+  .orbit-2 .geo-ai-logo {
+    animation-name: geo-counter-rotate-2;
+  }
+
+  @keyframes geo-counter-rotate-2 {
+    from { rotate: 0deg; }
+    to { rotate: 360deg; }
+  }
+
   .geo-card {
     position: absolute;
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    padding: 0.8rem 1.2rem;
-    border-radius: 14px;
+    padding: 0.55rem 0.95rem;
+    border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.6);
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    font-size: 0.85rem;
+    gap: 0.45rem;
+    font-size: 0.8rem;
     font-weight: 600;
+    white-space: nowrap;
     animation: geo-float 6s ease-in-out infinite;
     transition: transform 0.35s var(--ease-spring);
+  }
+
+  .geo-card img {
+    flex-shrink: 0;
   }
 
   .geo-card em {
     font-style: normal;
     font-weight: 400;
     color: var(--ink-tertiary);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
   }
 
   .geo-card:hover {
     transform: translateY(-4px) scale(1.03);
   }
 
-  .geo-card.gc-1 { top: 8%; left: 0%; animation-delay: 0s; }
-  .geo-card.gc-2 { top: 45%; right: -2%; animation-delay: 1.3s; }
-  .geo-card.gc-3 { bottom: 6%; left: 8%; animation-delay: 2.6s; }
+  /* cartes rapprochees de leur logo en orbite */
+  .geo-card.gc-1 { top: 2%; right: 12%; animation-delay: 0s; }
+  .geo-card.gc-2 { top: 44%; left: 4%; animation-delay: 1.3s; }
+  .geo-card.gc-3 { bottom: 2%; right: 20%; animation-delay: 2.6s; }
 
-  .geo-ai-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
+  @media (max-width: 768px) {
+    .geo-card.gc-1 { right: 0; }
+    .geo-card.gc-3 { right: 0; }
   }
 
   @media (max-width: 1024px) {
