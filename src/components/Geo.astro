@@ -49,11 +49,6 @@
         <div class="geo-orb-core">
           <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
         </div>
-        <div class="geo-orbit orbit-dots">
-          {[0, 1, 2, 3].map(() => (
-            <span class="geo-dot"></span>
-          ))}
-        </div>
         <div class="geo-orbit orbit-1">
           <span class="geo-ai-logo" title="Google Gemini"><img src="/ai/gemini-spark.svg" alt="Google Gemini" /></span>
           <span class="geo-ai-logo" title="Perplexity"><img src="https://cdn.simpleicons.org/perplexity/20808D" alt="Perplexity" /></span>
@@ -241,30 +236,6 @@
     animation-direction: reverse;
     border-color: rgba(10, 132, 255, 0.25);
   }
-
-  /* orbite interne de petites tailles autour de l icone */
-  .geo-orbit.orbit-dots {
-    inset: 10px;
-    animation: geo-rotate 10s linear infinite;
-    border-color: rgba(10, 132, 255, 0.3);
-  }
-
-  .geo-dot {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 8px;
-    height: 8px;
-    margin: -4px 0 0 -4px;
-    background: #0a84ff;
-    border-radius: 50%;
-    box-shadow: 0 2px 6px rgba(10, 132, 255, 0.4);
-  }
-
-  .orbit-dots .geo-dot:nth-child(1) { transform: rotate(0deg) translateX(92px) rotate(0deg); }
-  .orbit-dots .geo-dot:nth-child(2) { transform: rotate(90deg) translateX(92px) rotate(-90deg); }
-  .orbit-dots .geo-dot:nth-child(3) { transform: rotate(180deg) translateX(92px) rotate(-180deg); }
-  .orbit-dots .geo-dot:nth-child(4) { transform: rotate(270deg) translateX(92px) rotate(-270deg); }
 
   @keyframes geo-rotate {
     from { transform: rotate(0deg); }
