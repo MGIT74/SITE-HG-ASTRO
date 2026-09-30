@@ -42,48 +42,6 @@ const icons = [
           <circle class="wf-pulse p4" r="4.5"></circle>
         </svg>
 
-        <div class="wf-card" style="left:24px; top:76px; --tint:#f59e0b;">
-          <div class="wf-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-          </div>
-          <div class="wf-lines"><span class="wf-line l1"></span><span class="wf-line l2"></span></div>
-        </div>
-
-        <div class="wf-card hi" style="left:194px; top:28px; --tint:#ec4899;">
-          <div class="wf-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 12l-6.1 3.2L12 21l-1.9-5.8L4 12l6.1-3.2z"></path></svg>
-          </div>
-          <div class="wf-lines"><span class="wf-line l1"></span><span class="wf-line l2"></span></div>
-        </div>
-
-        <div class="wf-card" style="left:364px; top:76px; --tint:#3b82f6;">
-          <div class="wf-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>
-          </div>
-          <div class="wf-lines"><span class="wf-line l1"></span><span class="wf-line l2"></span></div>
-        </div>
-
-        <div class="wf-card" style="left:24px; top:236px; --tint:#f59e0b;">
-          <div class="wf-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-          </div>
-          <div class="wf-lines"><span class="wf-line l1"></span><span class="wf-line l2"></span></div>
-        </div>
-
-        <div class="wf-card" style="left:364px; top:236px; --tint:#8b5cf6;">
-          <div class="wf-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"></rect><polyline points="8.5 12.5 11 15 15.5 9.5"></polyline></svg>
-          </div>
-          <div class="wf-lines"><span class="wf-line l1"></span><span class="wf-line l2"></span></div>
-        </div>
-
-        <div class="wf-card" style="left:284px; top:316px; --tint:#14b8a6;">
-          <div class="wf-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-          </div>
-          <div class="wf-lines"><span class="wf-line l1"></span><span class="wf-line l2"></span></div>
-        </div>
-
         <div class="wf-hub">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
         </div>
@@ -329,56 +287,6 @@ const icons = [
     50%  { opacity: 0; }
     100% { opacity: 0; }
   }
-
-  /* cartes noeuds : icon + lignes squelettes */
-  .wf-card {
-    position: absolute;
-    width: 152px;
-    height: 56px;
-    background: white;
-    border: 1px solid rgba(100, 116, 139, 0.25);
-    border-radius: 14px;
-    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    padding: 0.65rem 0.8rem;
-    z-index: 2;
-  }
-
-  .wf-card.hi {
-    border-color: #f43f5e;
-    box-shadow: 0 4px 20px rgba(244, 63, 94, 0.12);
-  }
-
-  .wf-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 9px;
-    background: color-mix(in srgb, var(--tint) 12%, white);
-    color: var(--tint);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .wf-lines {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    flex: 1;
-  }
-
-  .wf-line {
-    display: block;
-    height: 7px;
-    border-radius: 4px;
-    background: #e2e8f0;
-  }
-
-  .wf-line.l1 { width: 100%; }
-  .wf-line.l2 { width: 62%; }
 
   /* hub central en losange */
   .wf-hub {
