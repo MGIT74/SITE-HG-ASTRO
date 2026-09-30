@@ -94,24 +94,24 @@ const icons = [
         <span class="wf-badge b-r" style="left:90px; top:236px;"></span>
         <span class="wf-badge b-g b-p" style="left:430px; top:236px;"></span>
         <span class="wf-badge b-g b-p" style="left:350px; top:316px;"></span>
-      </div>
 
-      <div class="marketing-stats">
-        {marketingStats.map((stat) => (
-          <div class="m-stat">
-            <div class={`m-stat-icon ${stat.direction}`}>
-              {stat.direction === 'up' ? (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
-              ) : (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
-              )}
+        <div class="marketing-stats">
+          {marketingStats.map((stat) => (
+            <div class="m-stat">
+              <div class={`m-stat-icon ${stat.direction}`}>
+                {stat.direction === 'up' ? (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                ) : (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+                )}
+              </div>
+              <div>
+                <div class="m-stat-value">{stat.value}</div>
+                <div class="m-stat-label">{stat.label}</div>
+              </div>
             </div>
-            <div>
-              <div class="m-stat-value">{stat.value}</div>
-              <div class="m-stat-label">{stat.label}</div>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   </div>
@@ -461,8 +461,18 @@ const icons = [
   .marketing-stats {
     position: absolute;
     inset: 0;
-    z-index: 2;
+    z-index: 5;
     pointer-events: none;
+  }
+
+  /* les 3 stats attachées a leur noeud correspondant */
+  .marketing-stats .m-stat:nth-child(1) { top: 0; right: -4%; animation-delay: 0s; transform: translateY(8px); }
+  .marketing-stats .m-stat:nth-child(2) { top: 46%; left: -14%; animation-delay: 1.2s; transform: translateY(-20px) translateX(-8px); animation: wf-chase-2 6s ease-in-out infinite; }
+  .marketing-stats .m-stat:nth-child(3) { bottom: 6%; right: 16%; animation-delay: 2.4s; }
+
+  @keyframes wf-chase-2 {
+    0%, 100% { transform: translateY(2px); }
+    50% { transform: translateY(-22px); }
   }
 
   .m-stat {
@@ -488,10 +498,6 @@ const icons = [
     transform: translateY(-4px) scale(1.04);
     background: rgba(255, 255, 255, 0.92);
   }
-
-  .m-stat:nth-child(1) { top: 6%; right: 2%; animation-delay: 0s; }
-  .m-stat:nth-child(2) { top: 42%; left: -2%; animation-delay: 1.2s; }
-  .m-stat:nth-child(3) { bottom: 8%; right: 4%; animation-delay: 2.4s; }
 
   .m-stat-icon {
     width: 30px;
@@ -532,9 +538,9 @@ const icons = [
     .marketing-grid { grid-template-columns: 1fr; }
     .workflow-graph { width: min(340px, 100%); }
     .m-stat { padding: 0.7rem 1rem; }
-    .m-stat:nth-child(1) { top: 2%; right: 0; }
-    .m-stat:nth-child(2) { left: 0; }
-    .m-stat:nth-child(3) { bottom: 2%; right: 0; }
+    .marketing-stats .m-stat:nth-child(1) { top: 0; right: 0; }
+    .marketing-stats .m-stat:nth-child(2) { left: 0; animation-name: wf-chase-2; }
+    .marketing-stats .m-stat:nth-child(3) { bottom: 2%; right: 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
