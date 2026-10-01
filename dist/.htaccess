@@ -1,26 +1,32 @@
-# MODE CONSTRUCTION : tout le monde voit construction.html
-# Pour publier le vrai site : supprimer la section MODE CONSTRUCTION ci-dessous
+# MODE CONSTRUCTION : les visiteurs voient la page "en construction" partout.
+# Pour publier le vrai site : commenter ce bloc, et decommenter le bloc PUBLICATION plus bas.
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Les assets du vrai site restent accessibles (pour tester en direct)
-  RewriteCond %{REQUEST_URI} ^/_astro/ [OR]
-  RewriteCond %{REQUEST_URI} ^/ai/ [OR]
-  RewriteCond %{REQUEST_URI} ^/(favicon|logo)\.svg$
+  # Assets du site reel servis directement depuis dist/ (pour la page de construction et tests)
+  RewriteCond %{REQUEST_URI} /_astro/ [OR]
+  RewriteCond %{REQUEST_URI} /ai/ [OR]
+  RewriteCond %{REQUEST_URI} favicon\.svg [OR]
+  RewriteCond %{REQUEST_URI} logo\.svg [OR]
+  RewriteCond %{REQUEST_URI} robots\.txt
   RewriteRule ^(.*)$ dist/$1 [L]
 
-  # Tout le reste -> page construction
+  # Tout le reste (y compris la racine) -> page construction.
+  # Garde anti-boucle : jamais re-rewriter ce qui est deja dans /dist/
+  RewriteCond %{REQUEST_URI} !^/dist/
   RewriteRule ^(.*)$ dist/construction/index.html [L]
 </IfModule>
 
-# ===== PUBLICATION (a decommenterer au lancement, et commenter le bloc ci-dessus)
+# ===== PUBLICATION (au lancement : commenter le bloc CONSTRUCTION au-dessus, decommenter celui-ci)
 # <IfModule mod_rewrite.c>
 #   RewriteEngine On
 #   RewriteBase /
-#   RewriteRule ^$ dist/index.html [L]
+#   RewriteRule ^/?$ dist/index.html [L]
 #   RewriteCond %{REQUEST_URI} !^/dist/
-#   RewriteCond %{DOCUMENT_ROOT}/dist/$1 -f
+#   RewriteCond %{REQUEST_URI} !^/(_astro|ai)/
+#   RewriteCond %{REQUEST_URI} !(favicon|logo)\.svg$
+#   RewriteCond %{DOCUMENT_ROOT}/dist%{REQUEST_URI} -f
 #   RewriteRule ^(.*)$ dist/$1 [L]
 # </IfModule>
 # ErrorDocument 404 /dist/404.html
