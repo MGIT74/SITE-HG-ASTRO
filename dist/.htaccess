@@ -4,18 +4,19 @@
   RewriteEngine On
   RewriteBase /
 
-  # Assets du site reel servis directement depuis dist/ (pour la page de construction et tests)
-  RewriteCond %{REQUEST_URI} /_astro/ [OR]
-  RewriteCond %{REQUEST_URI} /ai/ [OR]
-  RewriteCond %{REQUEST_URI} favicon\.svg [OR]
-  RewriteCond %{REQUEST_URI} logo\.svg [OR]
-  RewriteCond %{REQUEST_URI} robots\.txt
-  RewriteRule ^(.*)$ dist/$1 [L]
+  # Toutes les URLs passent par construction/, sauf les assets servis par le bloc PUBLIGATION ci-dessous si actif.
+  # Garde: ne pas re-rewriter ce qui est deja dans /dist/ (sinon boucle 500)
 
-  # Tout le reste (y compris la racine) -> page construction.
-  # Garde anti-boucle : jamais re-rewriter ce qui est deja dans /dist/
   RewriteCond %{REQUEST_URI} !^/dist/
+  RewriteCond %{REQUEST_URI} !(favicon|logo)\.svg$
+  RewriteCond %{REQUEST_URI} !^/(ai|_astro)/
+  RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^(.*)$ dist/construction/index.html [L]
+
+  # assets svg + ai/ servis depuis dist/
+  RewriteCond %{REQUEST_URI} ^/(ai|_astro)/ [OR]
+  RewriteCond %{REQUEST_URI} (favicon|logo)\.svg$
+  RewriteRule ^(.*)$ dist/$1 [L]
 </IfModule>
 
 # ===== PUBLICATION (au lancement : commenter le bloc CONSTRUCTION au-dessus, decommenter celui-ci)
