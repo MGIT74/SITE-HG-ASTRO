@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://handgraphic.com/sitemap-index.xml
+Sitemap: https://handsgraphic.com/sitemap-index.xml
