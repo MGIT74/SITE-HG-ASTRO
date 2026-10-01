@@ -32,10 +32,10 @@ Astro.site = 'https://handgraphic.com';
         <div class="logo-box">
           <img src="/logo.svg" alt="Hands Graphic" />
         </div>
-        <h1 class="logo-text">
-          <span class="word">Hands</span>
-          <span class="word highlight">Graphic</span>
-        </h1>
+      <h1 class="logo-text">
+        <span class="word">Hands</span>
+        <span class="word">Graphic</span>
+      </h1>
       </div>
 
       <p class="tagline">
@@ -53,17 +53,6 @@ Astro.site = 'https://handgraphic.com';
           <span id="progress-step">Assemblage des agents IA...</span>
           <span class="progress-pct"><span id="progress-num">0</span>%</span>
         </div>
-      </div>
-
-      <!-- horloge de mise en ligne -->
-      <div class="countdown" id="countdown" aria-label="Mise en ligne estimée">
-        <div class="cd-item"><span id="cd-d">00</span><small>jours</small></div>
-        <span class="cd-sep">:</span>
-        <div class="cd-item"><span id="cd-h">00</span><small>h</small></div>
-        <span class="cd-sep">:</span>
-        <div class="cd-item"><span id="cd-m">00</span><small>min</small></div>
-        <span class="cd-sep">:</span>
-        <div class="cd-item"><span id="cd-s">00</span><small>s</small></div>
       </div>
 
       <a class="btn" href="mailto:contact@handsgraphic.com">
@@ -134,29 +123,6 @@ Astro.site = 'https://handgraphic.com';
         }
       }
       setTimeout(animate, 600);
-
-      /* compte a rebours : cible = lundi 6h UTC (prochaine mise en ligne) */
-      function nextMonday6h() {
-        const now = new Date();
-        const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 6, 0, 0));
-        const day = d.getUTCDay();
-        let add = (1 - day + 7) % 7;
-        if (add === 0 && now.getTime() > d.getTime()) add = 7;
-        d.setUTCDate(d.getUTCDate() + add);
-        return d;
-      }
-      const target_date = nextMonday6h();
-      const pad = (n) => String(n).padStart(2, '0');
-      function cd() {
-        const diff = Math.max(0, target_date.getTime() - Date.now());
-        const s = Math.floor(diff / 1000);
-        document.getElementById('cd-d').textContent = pad(Math.floor(s / 86400));
-        document.getElementById('cd-h').textContent = pad(Math.floor((s % 86400) / 3600));
-        document.getElementById('cd-m').textContent = pad(Math.floor((s % 3600) / 60));
-        document.getElementById('cd-s').textContent = pad(s % 60);
-      }
-      cd();
-      setInterval(cd, 1000);
     </script>
 
     <style is:global>
@@ -315,20 +281,6 @@ Astro.site = 'https://handgraphic.com';
         to { opacity: 1; transform: translateY(0) rotateX(0); }
       }
 
-      .highlight {
-        background: linear-gradient(90deg, #0a84ff, #a855f7, #0a84ff);
-        background-size: 220% auto;
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: shine 7s linear infinite;
-      }
-
-      @keyframes shine {
-        0% { background-position: 0% 50%; }
-        100% { background-position: 220% 50%; }
-      }
-
       /* tagline + typing */
       .tagline {
         font-size: clamp(1.02rem, 2.6vw, 1.22rem);
@@ -410,53 +362,10 @@ Astro.site = 'https://handgraphic.com';
 
       .progress-pct { font-weight: 700; color: #1d1d1f; }
 
-      /* countdown */
-      .countdown {
-        display: flex;
-        justify-content: center;
-        align-items: stretch;
-        gap: 0.7rem;
-        margin: 2rem 0 2.4rem;
-        animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+      @media (max-width: 480px) {
+        .badge { font-size: 0.74rem; padding: 0.5rem 0.9rem; }
       }
 
-      .cd-item {
-        min-width: 74px;
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(0, 0, 0, 0.05);
-        border-radius: 16px;
-        padding: 0.75rem 0.5rem 0.6rem;
-        box-shadow: 0 6px 22px rgba(0, 0, 0, 0.05);
-      }
-
-      .cd-item span {
-        display: block;
-        font-size: 1.55rem;
-        font-weight: 800;
-        letter-spacing: -1px;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .cd-item small {
-        display: block;
-        font-size: 0.62rem;
-        text-transform: uppercase;
-        letter-spacing: 1.4px;
-        color: #86868b;
-        margin-top: 0.18rem;
-        font-weight: 600;
-      }
-
-      .cd-sep {
-        align-self: center;
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #c7c7cc;
-        animation: blink 1.05s steps(1) infinite;
-      }
-
-      /* bouton */
       .btn {
         display: inline-flex;
         align-items: center;
@@ -491,16 +400,9 @@ Astro.site = 'https://handgraphic.com';
         to { opacity: 1; transform: translateY(0); }
       }
 
-      @media (max-width: 480px) {
-        .countdown { flex-wrap: wrap; }
-        .cd-item { min-width: 62px; }
-        .cd-item span { font-size: 1.25rem; }
-        .badge { font-size: 0.74rem; padding: 0.5rem 0.9rem; }
-      }
-
       @media (prefers-reduced-motion: reduce) {
-        .glow, .logo-box, .badge-icon, .caret, .cd-sep,
-        .progress-fill::after, .highlight { animation: none !important; }
+        .glow, .logo-box, .badge-icon, .caret,
+        .progress-fill::after { animation: none !important; }
       }
     </style>
   </body>
