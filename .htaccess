@@ -1,16 +1,28 @@
-# Routage : sert le site compile depuis /dist sans montrer /dist dans l'URL
+# MODE CONSTRUCTION : tout le monde voit construction.html
+# Pour publier le vrai site : supprimer la section MODE CONSTRUCTION ci-dessous
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Racine -> index
-  RewriteRule ^$ dist/index.html [L]
-
-  # Fichiers reels dans dist/ (assets, images, favicon, sitemap...)
-  RewriteCond %{REQUEST_URI} !^/dist/
-  RewriteCond %{DOCUMENT_ROOT}/dist/$1 -f
+  # Les assets du vrai site restent accessibles (pour tester en direct)
+  RewriteCond %{REQUEST_URI} ^/_astro/ [OR]
+  RewriteCond %{REQUEST_URI} ^/ai/ [OR]
+  RewriteCond %{REQUEST_URI} ^/(favicon|logo)\.svg$
   RewriteRule ^(.*)$ dist/$1 [L]
+
+  # Tout le reste -> page construction
+  RewriteRule ^(.*)$ dist/construction/index.html [L]
 </IfModule>
 
-# Page 404 personnalisee
-ErrorDocument 404 /dist/404.html
+# ===== PUBLICATION (a decommenterer au lancement, et commenter le bloc ci-dessus)
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteBase /
+#   RewriteRule ^$ dist/index.html [L]
+#   RewriteCond %{REQUEST_URI} !^/dist/
+#   RewriteCond %{DOCUMENT_ROOT}/dist/$1 -f
+#   RewriteRule ^(.*)$ dist/$1 [L]
+# </IfModule>
+# ErrorDocument 404 /dist/404.html
+
+ErrorDocument 404 /dist/construction/index.html

@@ -1,0 +1,507 @@
+---
+Astro.site = 'https://handgraphic.com';
+---
+<!DOCTYPE html>
+<html lang="fr" class="construction">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hands Graphic — Bientôt en ligne</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Le nouveau site de Hands Graphic arrive bientôt." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- orbes lumineux d'ambiance -->
+    <div class="glow glow-1" aria-hidden="true"></div>
+    <div class="glow glow-2" aria-hidden="true"></div>
+    <div class="glow glow-3" aria-hidden="true"></div>
+
+    <main class="wrap">
+      <div class="badge">
+        <span class="badge-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="12" rx="3"></rect><path d="M12 7V4"></path><circle cx="12" cy="3" r="1"></circle><circle cx="9.5" cy="13" r="1" fill="currentColor" stroke="none"></circle><circle cx="14.5" cy="13" r="1" fill="currentColor" stroke="none"></circle></svg>
+        </span>
+        Notre agent IA prépare quelque chose...
+      </div>
+
+      <div class="logo-lockup">
+        <div class="logo-box">
+          <img src="/logo.svg" alt="Hands Graphic" />
+        </div>
+        <h1 class="logo-text">
+          <span class="word">Hands</span>
+          <span class="word highlight">Graphic</span>
+        </h1>
+      </div>
+
+      <p class="tagline">
+        Le nouveau site est en cours de construction.<br />
+        Des agents IA, des automatisations et un design
+        <span class="type-wrap"><span class="typed" id="typed"></span><span class="caret" aria-hidden="true"></span></span>
+      </p>
+
+      <!-- progression -->
+      <div class="progress" role="progressbar" aria-label="Avancement du site" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-meta">
+          <span id="progress-step">Assemblage des agents IA...</span>
+          <span class="progress-pct"><span id="progress-num">0</span>%</span>
+        </div>
+      </div>
+
+      <!-- horloge de mise en ligne -->
+      <div class="countdown" id="countdown" aria-label="Mise en ligne estimée">
+        <div class="cd-item"><span id="cd-d">00</span><small>jours</small></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-item"><span id="cd-h">00</span><small>h</small></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-item"><span id="cd-m">00</span><small>min</small></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-item"><span id="cd-s">00</span><small>s</small></div>
+      </div>
+
+      <a class="btn" href="mailto:contact@handgraphic.com">
+        Nous contacter pendant ce temps
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+
+      <div class="foot">© 2026 Hands Graphic — Agents IA &amp; Marketing Digital</div>
+    </main>
+
+    <script>
+      /* texte tape en boucle */
+      const words = ['arrive très bientôt.', 'sera cité par les IA.', 'travaille même la nuit.', 'est en train de naître.'];
+      const typed = document.getElementById('typed');
+      let wi = 0, ci = 0, deleting = false;
+
+      function tick() {
+        const w = words[wi];
+        if (!deleting) {
+          ci++;
+          typed.textContent = w.slice(0, ci);
+          if (ci === w.length) {
+            deleting = true;
+            setTimeout(tick, 1600);
+            return;
+          }
+        } else {
+          ci--;
+          typed.textContent = w.slice(0, ci);
+          if (ci === 0) {
+            deleting = false;
+            wi = (wi + 1) % words.length;
+            setTimeout(tick, 350);
+            return;
+          }
+        }
+        setTimeout(tick, deleting ? 35 : 75);
+      }
+      tick();
+
+      /* barre de progression réaliste : avance par secousses vers 72% */
+      const fill = document.getElementById('progress-fill');
+      const num = document.getElementById('progress-num');
+      const step = document.getElementById('progress-step');
+      const steps = [
+        'Assemblage des agents IA...',
+        'Entraînement des workflows...',
+        'Polissage du design...',
+        'Derniers ajustements...',
+      ];
+      const target = 72;
+      let cur = 0;
+
+      function animate() {
+        const jitter = Math.random() * (cur < target * 0.8 ? 2.4 : 0.8);
+        cur = Math.min(cur + jitter, target);
+        fill.style.width = cur + '%';
+        num.textContent = Math.round(cur);
+        step.textContent = cur < 25 ? steps[0] : cur < 45 ? steps[1] : cur < 65 ? steps[2] : steps[3];
+        if (cur < target) setTimeout(animate, 120 + Math.random() * 400);
+        else {
+          /* micro-vibration a 72% pour donner l'impression de vie */
+          setInterval(() => {
+            const v = 72 + (Math.random() * 1.2 - 0.4);
+            fill.style.width = v + '%';
+            num.textContent = Math.round(v);
+          }, 1800);
+        }
+      }
+      setTimeout(animate, 600);
+
+      /* compte a rebours : cible = lundi 6h UTC (prochaine mise en ligne) */
+      function nextMonday6h() {
+        const now = new Date();
+        const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 6, 0, 0));
+        const day = d.getUTCDay();
+        let add = (1 - day + 7) % 7;
+        if (add === 0 && now.getTime() > d.getTime()) add = 7;
+        d.setUTCDate(d.getUTCDate() + add);
+        return d;
+      }
+      const target_date = nextMonday6h();
+      const pad = (n) => String(n).padStart(2, '0');
+      function cd() {
+        const diff = Math.max(0, target_date.getTime() - Date.now());
+        const s = Math.floor(diff / 1000);
+        document.getElementById('cd-d').textContent = pad(Math.floor(s / 86400));
+        document.getElementById('cd-h').textContent = pad(Math.floor((s % 86400) / 3600));
+        document.getElementById('cd-m').textContent = pad(Math.floor((s % 3600) / 60));
+        document.getElementById('cd-s').textContent = pad(s % 60);
+      }
+      cd();
+      setInterval(cd, 1000);
+    </script>
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      html.construction, .construction body {
+        min-height: 100%;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        color: #1d1d1f;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .construction body {
+        background:
+          radial-gradient(1200px 800px at 85% -10%, #eef1ff 0%, transparent 55%),
+          radial-gradient(1000px 700px at -10% 110%, #fdf3ff 0%, transparent 50%),
+          #f8f8fb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* orbes flous */
+      .glow {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(90px);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .glow-1 {
+        width: 440px; height: 440px;
+        background: rgba(10, 132, 255, 0.16);
+        top: -80px; right: -60px;
+        animation: drift 14s ease-in-out infinite;
+      }
+      .glow-2 {
+        width: 380px; height: 380px;
+        background: rgba(168, 85, 247, 0.12);
+        bottom: -60px; left: -80px;
+        animation: drift 18s ease-in-out infinite reverse;
+      }
+      .glow-3 {
+        width: 260px; height: 260px;
+        background: rgba(48, 209, 88, 0.10);
+        top: 55%; left: 65%;
+        animation: drift 12s ease-in-out infinite 1.5s;
+      }
+
+      @keyframes drift {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(-40px, 30px) scale(1.08); }
+      }
+
+      .wrap {
+        position: relative;
+        z-index: 1;
+        width: min(680px, calc(100vw - 2.5rem));
+        text-align: center;
+        padding: 3.5rem 0;
+      }
+
+      /* badge live */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        padding: 0.55rem 1.15rem;
+        border-radius: 50px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #6e6e73;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+        animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      .badge-icon {
+        width: 26px;
+        height: 26px;
+        background: linear-gradient(135deg, #0a84ff, #0055b8);
+        color: white;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(10, 132, 255, 0.35);
+        animation: bob 2.4s ease-in-out infinite;
+      }
+
+      @keyframes bob {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-3px) rotate(-4deg); }
+      }
+
+      /* logo */
+      .logo-lockup {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.4rem;
+        margin: 2.6rem 0 1.6rem;
+        animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+      }
+
+      .logo-box {
+        width: 84px;
+        height: 84px;
+        background: #1d1d1f;
+        border-radius: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+        animation: floaty 5s ease-in-out infinite;
+        position: relative;
+      }
+
+      .logo-box::before {
+        content: '';
+        position: absolute;
+        inset: -5px;
+        border-radius: 26px;
+        background: linear-gradient(135deg, rgba(10, 132, 255, 0.35), transparent 55%);
+        z-index: -1;
+        filter: blur(8px);
+      }
+
+      .logo-box img {
+        width: 62%;
+        height: 62%;
+        object-fit: contain;
+      }
+
+      @keyframes floaty {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-9px); }
+      }
+
+      .logo-text {
+        font-size: clamp(2.2rem, 7vw, 3.4rem);
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        display: flex;
+        gap: 0.35em;
+      }
+
+      .word { display: inline-block; animation: wordup 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+      .word:nth-child(2) { animation-delay: 0.15s; }
+
+      @keyframes wordup {
+        from { opacity: 0; transform: translateY(24px) rotateX(40deg); }
+        to { opacity: 1; transform: translateY(0) rotateX(0); }
+      }
+
+      .highlight {
+        background: linear-gradient(90deg, #0a84ff, #a855f7, #0a84ff);
+        background-size: 220% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 7s linear infinite;
+      }
+
+      @keyframes shine {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 220% 50%; }
+      }
+
+      /* tagline + typing */
+      .tagline {
+        font-size: clamp(1.02rem, 2.6vw, 1.22rem);
+        color: #6e6e73;
+        line-height: 1.75;
+        animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+      }
+
+      .type-wrap {
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .typed {
+        font-weight: 700;
+        color: #0a84ff;
+      }
+
+      .caret {
+        display: inline-block;
+        width: 2.5px;
+        height: 1.05em;
+        background: #0a84ff;
+        margin-left: 3px;
+        border-radius: 2px;
+        animation: blink 1.05s steps(1) infinite;
+      }
+
+      @keyframes blink {
+        0%, 60% { opacity: 1; }
+        61%, 100% { opacity: 0; }
+      }
+
+      /* progression */
+      .progress {
+        margin: 2.6rem auto 0;
+        max-width: 460px;
+        animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.38s both;
+      }
+
+      .progress-track {
+        height: 12px;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.055);
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.04);
+      }
+
+      .progress-fill {
+        position: relative;
+        height: 100%;
+        width: 0%;
+        border-radius: 8px;
+        background: linear-gradient(90deg, #0a84ff, #5ea2ff);
+        transition: width 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .progress-fill::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.45) 50%, transparent 75%);
+        background-size: 220% 100%;
+        animation: sweep 1.8s linear infinite;
+      }
+
+      @keyframes sweep {
+        0% { background-position: 200% 0; }
+        100% { background-position: -100% 0; }
+      }
+
+      .progress-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.6rem;
+        font-size: 0.8rem;
+        color: #86868b;
+      }
+
+      .progress-pct { font-weight: 700; color: #1d1d1f; }
+
+      /* countdown */
+      .countdown {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        gap: 0.7rem;
+        margin: 2rem 0 2.4rem;
+        animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+      }
+
+      .cd-item {
+        min-width: 74px;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 16px;
+        padding: 0.75rem 0.5rem 0.6rem;
+        box-shadow: 0 6px 22px rgba(0, 0, 0, 0.05);
+      }
+
+      .cd-item span {
+        display: block;
+        font-size: 1.55rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .cd-item small {
+        display: block;
+        font-size: 0.62rem;
+        text-transform: uppercase;
+        letter-spacing: 1.4px;
+        color: #86868b;
+        margin-top: 0.18rem;
+        font-weight: 600;
+      }
+
+      .cd-sep {
+        align-self: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #c7c7cc;
+        animation: blink 1.05s steps(1) infinite;
+      }
+
+      /* bouton */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        text-decoration: none;
+        background: #1d1d1f;
+        color: white;
+        padding: 0.95rem 1.9rem;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+        transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.62s both;
+      }
+
+      .btn:hover {
+        background: #000;
+        transform: translateY(-3px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .foot {
+        margin-top: 2.8rem;
+        font-size: 0.75rem;
+        color: #a1a1a6;
+        animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.74s both;
+      }
+
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(22px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 480px) {
+        .countdown { flex-wrap: wrap; }
+        .cd-item { min-width: 62px; }
+        .cd-item span { font-size: 1.25rem; }
+        .badge { font-size: 0.74rem; padding: 0.5rem 0.9rem; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .glow, .logo-box, .badge-icon, .caret, .cd-sep,
+        .progress-fill::after, .highlight { animation: none !important; }
+      }
+    </style>
+  </body>
+</html>
