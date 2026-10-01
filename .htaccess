@@ -3,19 +3,13 @@
   RewriteEngine On
   RewriteBase /
 
-  # Autoriser l'acces direct aux fichiers du repo utiles (htaccess lui-meme)
-  # Tout le reste est sert depuis dist/
+  # Racine -> index
+  RewriteRule ^$ dist/index.html [L]
 
-  # 1. Fichiers reels presents dans dist/
-  RewriteCond %{DOCUMENT_ROOT}/dist%{REQUEST_URI} -f
-  RewriteRule ^(.*)$ dist%{REQUEST_URI} [L]
-
-  # 2. Repertoires (ex: /_astro/, /ai/)
-  RewriteCond %{DOCUMENT_ROOT}/dist%{REQUEST_URI} -d
-  RewriteRule ^(.*)$ dist%{REQUEST_URI} [L]
-
-  # 3. Tout le reste -> index.html (SPA / pages Astro)
-  RewriteRule ^(.*)$ dist/index.html [L]
+  # Fichiers reels dans dist/ (assets, images, favicon, sitemap...)
+  RewriteCond %{REQUEST_URI} !^/dist/
+  RewriteCond %{DOCUMENT_ROOT}/dist/$1 -f
+  RewriteRule ^(.*)$ dist/$1 [L]
 </IfModule>
 
 # Page 404 personnalisee
