@@ -14,6 +14,8 @@
   RewriteRule ^(.*)$ dist/construction/index.html [L]
 
   # assets svg + ai/ servis depuis dist/
+  # Garde anti-boucle: ne jamais re-rewriter une URL deja dans /dist/
+  RewriteCond %{REQUEST_URI} !^/dist/
   RewriteCond %{REQUEST_URI} ^/(ai|_astro)/ [OR]
   RewriteCond %{REQUEST_URI} (favicon|logo|hg-favicon|hg-logo)\.svg$
   RewriteRule ^(.*)$ dist/$1 [L]
