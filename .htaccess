@@ -8,14 +8,14 @@
   # Garde: ne pas re-rewriter ce qui est deja dans /dist/ (sinon boucle 500)
 
   RewriteCond %{REQUEST_URI} !^/dist/
-  RewriteCond %{REQUEST_URI} !(favicon|logo)\.svg$
+  RewriteCond %{REQUEST_URI} !(favicon|logo|hg-favicon|hg-logo)\.svg$
   RewriteCond %{REQUEST_URI} !^/(ai|_astro)/
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^(.*)$ dist/construction/index.html [L]
 
   # assets svg + ai/ servis depuis dist/
   RewriteCond %{REQUEST_URI} ^/(ai|_astro)/ [OR]
-  RewriteCond %{REQUEST_URI} (favicon|logo)\.svg$
+  RewriteCond %{REQUEST_URI} (favicon|logo|hg-favicon|hg-logo)\.svg$
   RewriteRule ^(.*)$ dist/$1 [L]
 </IfModule>
 
